@@ -59,8 +59,8 @@ export default function Footer() {
           viewport={{ once: true }}
         >
           {[
-            { name: "LinkedIn", href: "#" },
-            { name: "Instagram", href: "#" },
+            { name: "LinkedIn", href: "/https://www.linkedin.com/company/103759950/admin/dashboard/" },
+            { name: "Instagram", href: "/https://www.instagram.com/ments_app" },
             { name: "Twitter", href: "#" },
           ].map((social, index) => (
             <motion.a
