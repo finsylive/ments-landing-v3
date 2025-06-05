@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 const NAV_ITEMS = [
   { label: "Blogs", href: "https://blog.ments.app" },
-  { label: "Careers", href: "/careers" },
+  { label: "Careers", href: "https://forms.gle/RXJbFKibUVVSBiUk7" },
   { label: "About us", href: "/about" },
 ];
 
@@ -48,12 +48,18 @@ export default function Navbar() {
 
         {/* Join Waitlist (always visible) */}
         <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button
-            variant="outline"
-            className="bg-white text-black border-white hover:bg-gray-100 rounded-full px-6"
+          <a
+            href="https://ments.ezzyforms.in/forms/6841e534f06f98d51b4f"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            Join Waitlist
-          </Button>
+            <Button
+              variant="outline"
+              className="bg-white text-black border-white hover:bg-gray-100 rounded-full px-6"
+            >
+              Join Waitlist
+            </Button>
+          </a>
         </motion.div>
       </div>
 
