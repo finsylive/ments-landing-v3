@@ -99,7 +99,7 @@ function CareerHero() {
         </div>
       </div>
 
-      <div className="container mx-auto mt-20 px-4">
+      <div className="container mx-auto mt-20 px-4 mb-20">
         <div className="relative mx-auto max-w-5xl overflow-hidden rounded-3xl bg-white p-8 shadow-xl md:p-12">
           <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-green-300 opacity-20 blur-2xl" />
           <div className="absolute -left-10 bottom-10 h-40 w-40 rounded-full bg-blue-300 opacity-20 blur-2xl" />

@@ -21,7 +21,7 @@ function OpeningsSection() {
   ];
 
   return (
-    <section id="openings" className="relative w-full overflow-hidden">
+    <section id="openings" className="relative w-full overflow-hidden py-20">
       {/* Background elements */}
       <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-blue-100 opacity-30 blur-3xl" />
 

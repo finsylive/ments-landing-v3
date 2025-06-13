@@ -1,6 +1,6 @@
 function LocationSection() {
   return (
-    <section className="relative w-full overflow-hidden">
+    <section className="relative w-full overflow-hidden py-20">
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-6xl overflow-hidden rounded-3xl bg-gray-100 shadow-lg">
           <div className="grid md:grid-cols-2">

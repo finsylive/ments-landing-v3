@@ -4,19 +4,20 @@ import BenefitsSection from "@/components/careers/BenefitsSection";
 import LocationSection from "@/components/careers/LocationSection";
 import Navbar from "@/components/navbar";
 import OpeningsSection from "@/components/careers/OpeningsSection";
-
-
+import Footer from "@/components/footer";
 
 export default function CareersPage() {
   return (
-    <main className="flex w-full flex-col items-center gap-32 pb-32">
+    <main className="min-h-screen w-full">
       <Navbar/> 
       <CareerHero />
       <ValuesSection />
       <BenefitsSection />
       <LocationSection />
       <OpeningsSection />
+      <Footer />
     </main>
+    
   )
 }
 

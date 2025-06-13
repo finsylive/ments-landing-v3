@@ -1,6 +1,6 @@
 function ValuesSection() {
   return (
-    <section className="relative w-full pb-16"> {/* Removed overflow-hidden, added pb-16 */}
+    <section className="relative w-full pb-16 py-10"> {/* Removed overflow-hidden, added pb-16 */}
       {/* Background elements */}
       <div className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-green-100 opacity-30 blur-3xl" />
 
