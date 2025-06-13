@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 const NAV_ITEMS = [
   { label: "Blogs", href: "https://blog.ments.app" },
   { label: "Careers", href: "/careers" },
-  { label: "About us", href: "/about" },
 ];
 
 export default function Navbar() {
@@ -23,15 +22,17 @@ export default function Navbar() {
     >
       <div className="bg-black/90 backdrop-blur-md rounded-full px-8 py-4 flex items-center justify-between max-w-4xl w-full md:w-auto">
         {/* Brand / Toggle */}
-        <motion.button
-          type="button"
-          className="text-white font-bold text-xl focus:outline-none"
+        <motion.div
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          onClick={() => setOpen(o => !o)}
         >
-          ments
-        </motion.button>
+          <Link
+            href="/"
+            className="text-white font-bold text-xl focus:outline-none"
+          >
+            ments
+          </Link>
+        </motion.div>
 
         {/* Desktop Links (centered) */}
         <div className="hidden md:flex items-center space-x-6 mx-6">

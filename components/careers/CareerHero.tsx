@@ -1,9 +1,88 @@
+"use client";
+import { motion } from "framer-motion";
+
 function CareerHero() {
   return (
     <section className="relative w-full overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute -top-20 -left-20 h-64 w-64 rounded-full bg-purple-200 opacity-20 blur-3xl" />
-      <div className="absolute top-40 right-20 h-96 w-96 rounded-full bg-green-200 opacity-20 blur-3xl" />
+      {/* Animated Background elements */}
+      <motion.div
+        className="absolute -top-20 -left-20 h-64 w-64 rounded-full bg-purple-300 opacity-40 blur-3xl"
+        animate={{ x: [0, 60, 0], opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute top-40 right-20 h-96 w-96 rounded-full bg-emerald-300 opacity-40 blur-3xl"
+        animate={{ y: [0, -60, 0], opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute bottom-20 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-blue-300 opacity-40 blur-3xl"
+        animate={{ y: [0, 40, 0], opacity: [0.3, 0.7, 0.3] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute top-10 right-1/3 h-48 w-48 rounded-full bg-red-300 opacity-30 blur-2xl"
+        animate={{ x: [0, -40, 0], opacity: [0.2, 0.5, 0.2] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      />
+      
+      {/* Asterisk-like elements */}
+      <motion.div
+        className="absolute top-32 left-1/4 text-6xl text-yellow-400 opacity-60"
+        animate={{ rotate: [0, 360], scale: [1, 1.2, 1] }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+      >
+        ✦
+      </motion.div>
+      <motion.div
+        className="absolute bottom-32 right-1/4 text-4xl text-pink-400 opacity-50"
+        animate={{ rotate: [360, 0], y: [0, -20, 0] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      >
+        ✨
+      </motion.div>
+      <motion.div
+        className="absolute top-1/2 right-10 text-5xl text-indigo-400 opacity-40"
+        animate={{ x: [0, 30, 0], rotate: [0, 180, 360] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      >
+        ⭐
+      </motion.div>
+      <motion.div
+        className="absolute top-20 left-10 text-7xl text-orange-400 opacity-50"
+        animate={{ rotate: [0, -360], scale: [0.8, 1.3, 0.8] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+      >
+        *
+      </motion.div>
+      <motion.div
+        className="absolute bottom-40 left-1/3 text-5xl text-cyan-400 opacity-60"
+        animate={{ y: [0, -30, 0], rotate: [0, 180, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      >
+        ✱
+      </motion.div>
+      <motion.div
+        className="absolute top-1/3 left-20 text-4xl text-purple-400 opacity-45"
+        animate={{ x: [0, 25, 0], scale: [1, 1.1, 1] }}
+        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+      >
+        ✳
+      </motion.div>
+      <motion.div
+        className="absolute bottom-16 right-1/3 text-6xl text-green-400 opacity-55"
+        animate={{ rotate: [360, 0], opacity: [0.3, 0.8, 0.3] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+      >
+        ✴
+      </motion.div>
+      <motion.div
+        className="absolute top-2/3 right-20 text-3xl text-rose-400 opacity-40"
+        animate={{ y: [0, 20, 0], x: [0, -15, 0] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      >
+        *
+      </motion.div>
 
       <div className="container mx-auto px-4 py-24 md:py-32 mt-24">
         <div className="mx-auto max-w-5xl text-center">
