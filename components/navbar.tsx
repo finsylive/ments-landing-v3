@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 const NAV_ITEMS = [
   { label: "Blogs", href: "https://blog.ments.app" },
-  { label: "Careers", href: "https://forms.gle/RXJbFKibUVVSBiUk7" },
+  { label: "Careers", href: "/careers" },
   { label: "About us", href: "/about" },
 ];
 
