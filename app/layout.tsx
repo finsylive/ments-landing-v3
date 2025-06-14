@@ -2,6 +2,8 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Poppins } from "next/font/google"
 import "./globals.css"
+import Navbar from "@/components/navbar"
+import Footer from "@/components/footer" // <-- import Footer
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -11,7 +13,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "ments - Where Hustle Begins",
   description: "Join the community where your entrepreneurial journey starts",
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -21,7 +23,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={poppins.className}>{children}</body>
+      <body className={poppins.className}>
+        <Navbar />
+        {children}
+        <Footer /> {/* <-- Add Footer here */}
+      </body>
     </html>
   )
 }

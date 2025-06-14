@@ -9,13 +9,11 @@ import Footer from "@/components/footer";
 export default function CareersPage() {
   return (
     <main className="min-h-screen w-full">
-      <Navbar/> 
       <CareerHero />
       <ValuesSection />
       <BenefitsSection />
       <LocationSection />
       <OpeningsSection />
-      <Footer />
     </main>
     
   )
