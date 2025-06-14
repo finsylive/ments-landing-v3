@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const NAV_ITEMS = [
@@ -15,80 +16,84 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className="fixed top-6 w-full z-50 flex justify-center px-4"
+      className="fixed top-4 left-0 right-0 z-50 flex justify-center box-border"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <div className="bg-black/90 backdrop-blur-md rounded-full px-8 py-4 flex items-center justify-between max-w-4xl w-full md:w-auto">
-        {/* Brand / Toggle */}
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-        >
-          <Link
-            href="/"
-            className="text-white font-bold text-xl focus:outline-none"
-          >
-            ments
-          </Link>
-        </motion.div>
+      <div className="box-border w-full md:w-auto max-w-4xl 
+                      bg-black/90 backdrop-blur-md rounded-full
+                      px-4 md:px-8 py-4 flex items-center justify-between">
+        {/* Brand */}
+        <Link href="/" className="text-white font-bold text-xl px-4">
+          ments
+        </Link>
 
-        {/* Desktop Links (centered) */}
-        <div className="hidden md:flex items-center space-x-6 mx-6">
-          {NAV_ITEMS.map(item => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="text-gray-300 hover:text-white transition-colors duration-200"
-            >
-              {item.label}
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center space-x-6 pr-4">
+          {NAV_ITEMS.map(({ label, href }) => (
+            <Link key={label} href={href}
+              className="text-gray-300 hover:text-white transition-colors duration-200">
+              {label}
             </Link>
           ))}
         </div>
 
-        {/* Join Waitlist (always visible) */}
-        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <a
-            href="https://ments.ezzyforms.in/forms/6841e534f06f98d51b4f"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button
-              variant="outline"
-              className="bg-white text-black border-white hover:bg-gray-100 rounded-full px-6"
-            >
-              Join Waitlist
-            </Button>
-          </a>
-        </motion.div>
+        {/* Join Waitlist */}
+        <a
+          href="https://ments.ezzyforms.in/forms/6841e534f06f98d51b4f"
+          target="_blank" rel="noopener noreferrer"
+          className="hidden md:block"
+        >
+          <Button variant="outline"
+                  className="bg-white text-black border-white hover:bg-gray-100 rounded-full px-6">
+            Join Waitlist
+          </Button>
+        </a>
+
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden text-white"
+          onClick={() => setOpen(!open)}
+          aria-label="Toggle navigation"
+        >
+          {open ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
 
-      {/* Mobile Dropdown (only nav links; no Join Waitlist here) */}
+      {/* Mobile dropdown */}
       <AnimatePresence>
         {open && (
-          <motion.div
+          <motion.ul
             key="mobile-menu"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="absolute top-full mt-2 w-full max-w-xs mx-auto bg-black/90 backdrop-blur-md rounded-2xl p-6 md:hidden"
+            transition={{ duration: 0.25 }}
+            className="absolute top-full mt-2 left-0 right-0 
+                       bg-black/90 backdrop-blur-md rounded-2xl p-6 space-y-4 md:hidden"
           >
-            <ul className="space-y-4">
-              {NAV_ITEMS.map(item => (
-                <li key={item.label}>
-                  <Link
-                    href={item.href}
-                    className="block text-gray-200 hover:text-white text-lg"
-                    onClick={() => setOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+            {NAV_ITEMS.map(({ label, href }) => (
+              <li key={label}>
+                <Link href={href}
+                  className="block text-gray-200 hover:text-white text-lg "
+                  onClick={() => setOpen(false)}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <a
+                href="https://ments.ezzyforms.in/forms/6841e534f06f98d51b4f"
+                target="_blank" rel="noopener noreferrer"
+                className="block"
+                onClick={() => setOpen(false)}
+              >
+                <Button className="w-full rounded-full">Join Waitlist</Button>
+              </a>
+            </li>
+          </motion.ul>
         )}
       </AnimatePresence>
     </motion.nav>
