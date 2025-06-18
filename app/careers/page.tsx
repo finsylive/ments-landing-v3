@@ -7,7 +7,7 @@ import OpeningsSection from "@/components/careers/OpeningsSection";
 
 export default function CareersPage() {
   return (
-    <main className="min-h-screen w-full">
+    <main className="min-h-screen w-full overflow-x-hidden">
       <CareerHero />
       <ValuesSection />
       <BenefitsSection />
