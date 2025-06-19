@@ -5,18 +5,14 @@ function OpeningsSection() {
       type: "Part-time / Internship",
       location: "Remote",
       description: "Create engaging content for our blog, social media, and other channels.",
+      applyLink: "https://forms.gle/RgiuThLHnKdT4cii9", 
     },
     {
       title: "Brand & UI Designer",
       type: "Full-time / Part-time",
       location: "Remote / Hybrid",
       description: "Design brand assets and user interfaces to elevate our platform's visual identity.",
-    },
-    {
-      title: "Research Analyst",
-      type: "Full-time / Internship",
-      location: "Remote",
-      description: "Conduct research and analysis to support our product and growth strategies.",
+      applyLink: "https://forms.gle/YSAdDcjBKyBmnEiU8",
     },
   ];
 
@@ -37,9 +33,23 @@ function OpeningsSection() {
                 <span className="rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800">{job.location}</span>
               </div>
               <p className="mb-6 text-gray-600">{job.description}</p>
-              <button className="rounded-lg bg-black px-6 py-2 text-white transition-colors hover:bg-gray-800">
-                Apply Now
-              </button>
+              {job.applyLink ? (
+                <a
+                  href={job.applyLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg bg-black px-6 py-2 text-white transition-colors hover:bg-gray-800 inline-block text-center"
+                >
+                  Apply Now
+                </a>
+              ) : (
+                <button
+                  className="rounded-lg bg-black px-6 py-2 text-white transition-colors hover:bg-gray-800"
+                  disabled
+                >
+                  Apply Now
+                </button>
+              )}
             </div>
           ))}
         </div>

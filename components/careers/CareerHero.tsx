@@ -10,20 +10,11 @@ function CareerHero() {
         animate={{ x: [0, 60, 0], opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
-      <motion.div
-        className="absolute top-40 right-20 h-96 w-96 rounded-full bg-emerald-300 opacity-40 blur-3xl"
-        animate={{ y: [0, -60, 0], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
+
       <motion.div
         className="absolute bottom-20 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-blue-300 opacity-40 blur-3xl"
         animate={{ y: [0, 40, 0], opacity: [0.3, 0.7, 0.3] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute top-10 right-1/3 h-48 w-48 rounded-full bg-red-300 opacity-30 blur-2xl"
-        animate={{ x: [0, -40, 0], opacity: [0.2, 0.5, 0.2] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
       />
       
       {/* Asterisk-like elements */}
@@ -40,13 +31,6 @@ function CareerHero() {
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       >
         ✨
-      </motion.div>
-      <motion.div
-        className="absolute top-1/2 right-10 text-5xl text-indigo-400 opacity-40"
-        animate={{ x: [0, 30, 0], rotate: [0, 180, 360] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-      >
-        ⭐
       </motion.div>
       <motion.div
         className="absolute top-20 left-10 text-7xl text-orange-400 opacity-50"
@@ -86,7 +70,7 @@ function CareerHero() {
 
       <div className="container mx-auto px-4 py-24 md:py-32 mt-24">
         <div className="mx-auto max-w-5xl text-center">
-          <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-7xl">Help us build a startup ecosystem</h1>
+          <h1 className="mb-6 text-5xl font-semibold tracking-tight md:text-7xl">Help us build a startup ecosystem</h1>
           <p className="mb-10 text-xl text-gray-600 md:text-2xl">
             Be part of a team turning vision into opportunity—for everyone.
           </p>
