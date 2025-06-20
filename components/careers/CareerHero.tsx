@@ -96,7 +96,7 @@ function CareerHero() {
             </div>
             <div className="relative">
               <img
-                src="/office.png?height=400&width=500"
+                src="/office-min.png?height=400&width=500"
                 alt="Team collaboration"
                 className="rounded-lg object-cover"
               />
