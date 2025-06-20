@@ -12,7 +12,7 @@ function OpeningsSection() {
       type: "Full-time / Part-time",
       location: "Remote / Hybrid",
       description: "Design brand assets and user interfaces to elevate our platform's visual identity.",
-      applyLink: "https://forms.gle/YSAdDcjBKyBmnEiU8",
+      applyLink: "https://docs.google.com/forms/d/e/1FAIpQLSebFCw9IgDFe8F7kuJfKiPvphqT7o4YQEGuNzya633FOvlg2A/viewform?usp=header",
     },
   ];
 
