@@ -59,7 +59,7 @@ function OpeningsSection() {
             Don't see a role that fits your skills? We're always looking for talented people to join our team.
           </p>
           <button className="rounded-lg border border-black bg-white px-6 py-2 text-black transition-colors hover:bg-gray-100">
-            Send Open Application
+            Email Open Application at official@ments.app
           </button>
         </div>
       </div>
