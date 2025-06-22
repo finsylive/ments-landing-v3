@@ -92,16 +92,16 @@ export default function Footer() {
 
           {/* Association Section */}
           <motion.div
-            className="text-right"
+            className="w-full lg:w-auto text-left lg:text-right"
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
           >
-            <p className="text-gray-300 text-lg mb-4">
-              In association with
+            <p className="text-gray-300 text-lg mb-4 text-right mt-6">
+              Incubated at Nirmaan, IIT madras
               <br />
-              Nirmaan, IIT madras
+              
             </p>
 
             {/* Logos */}

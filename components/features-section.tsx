@@ -5,7 +5,8 @@ import Image from "next/image"
 
 export default function FeaturesSection() {
   return (
-    <div className="container mx-auto px-4 py-16 max-w-7xl">
+    <div className="w-full bg-gray-50 py-16">
+      <div className="container mx-auto px-4 max-w-7xl">
       <motion.div
         className="text-center mb-16"
         initial={{ opacity: 0, y: 50 }}
@@ -19,7 +20,7 @@ export default function FeaturesSection() {
       <div className="grid md:grid-cols-3 gap-8 mb-12">
         {/* Students Card */}
         <motion.div
-          className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 relative overflow-hidden text-center items-center "
+          className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 relative overflow-hidden text-center items-center "
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
@@ -37,7 +38,7 @@ export default function FeaturesSection() {
               </svg>
             </div>
 
-            <h3 className="text-2xl font-bold text-black mb-4">Students</h3>
+            <h3 className="text-2xl font-semibold text-black mb-4">Students</h3>
             <p className="text-gray-600 mb-8 leading-relaxed">
               Discover Startups,
               <br />
@@ -61,7 +62,7 @@ export default function FeaturesSection() {
 
         {/* Entrepreneurs Card */}
         <motion.div
-          className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center items-center"
+          className="bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 text-center items-center"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -75,7 +76,7 @@ export default function FeaturesSection() {
             </svg>
           </div>
 
-          <h3 className="text-2xl font-bold text-black mb-4">Entrepreneurs</h3>
+          <h3 className="text-2xl font-semibold text-black mb-4">Entrepreneurs</h3>
           <p className="text-gray-600 mb-8 leading-relaxed">
             Showcase your startup,
             <br />
@@ -98,7 +99,7 @@ export default function FeaturesSection() {
 
         {/* Investors Card */}
         <motion.div
-          className="bg-black rounded-3xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300 text-center items-center"
+          className="bg-black rounded-3xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300 text-center items-center"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
@@ -111,7 +112,7 @@ export default function FeaturesSection() {
             </svg>
           </div>
 
-          <h3 className="text-2xl font-bold text-white mb-4">Investors</h3>
+          <h3 className="text-2xl font-semibold text-white mb-4">Investors</h3>
           <p className="text-gray-400 mb-8 leading-relaxed">
             Browse startup profiles,
             <br />
@@ -161,5 +162,6 @@ export default function FeaturesSection() {
         </div>
       </motion.div>
     </div>
+  </div>
   )
 }
