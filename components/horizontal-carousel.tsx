@@ -92,11 +92,11 @@ export default function HorizontalCarousel() {
   };
 
   const scrollLeft = () => {
-    scrollContainerRef.current?.scrollBy({ left: -520, behavior: "smooth" });
+    scrollContainerRef.current?.scrollBy({ left: -410, behavior: "smooth" });
   };
 
   const scrollRight = () => {
-    scrollContainerRef.current?.scrollBy({ left: 520, behavior: "smooth" });
+    scrollContainerRef.current?.scrollBy({ left: 410, behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -146,7 +146,7 @@ export default function HorizontalCarousel() {
                   key={screen.id}
                   className={`flex-shrink-0 w-96 sm:w-[432px] md:w-[480px] h-[750px] ${screen.bgColor} border-0 rounded-3xl overflow-hidden relative group`}
                 >
-                  <CardContent className="p-6 h-full flex flex-col">
+                  <CardContent className="p-4 h-full flex flex-col">
                     {/* Copy */}
                     <div>
                       <p className={`text-sm ${screen.textColor} opacity-80 mb-2 font-poppins`}>{screen.category}</p>
@@ -157,7 +157,7 @@ export default function HorizontalCarousel() {
                     </div>
 
                     {/* Image */}
-                    <div className="relative w-full flex-1 mt-4 rounded-xl overflow-hidden ">
+                    <div className="relative w-full flex-1 mt-2 rounded-xl overflow-hidden ">
                       <img
                         src={screen.image}
                         alt={screen.title}
