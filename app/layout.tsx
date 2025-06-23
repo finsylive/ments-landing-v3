@@ -13,7 +13,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "ments - Where Hustle Begins",
   description: "Join the community where your entrepreneurial journey starts",
-  generator: "v0.dev",
+  icons: { icon: "/icon.png" }
 }
 
 export default function RootLayout({
