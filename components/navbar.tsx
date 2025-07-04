@@ -41,7 +41,7 @@ export default function Navbar() {
 
         {/* Join Waitlist */}
         <a
-          href="https://ments.ezzyforms.in/forms/6841e534f06f98d51b4f"
+          href="https://docs.google.com/forms/d/e/1FAIpQLSeKLPysBVutn6RuNDrRpzC8oozVXOJ4FC7SnRuOZ_9Y8fM8cw/viewform?usp=header"
           target="_blank" rel="noopener noreferrer"
           className="hidden md:block"
         >
@@ -85,7 +85,7 @@ export default function Navbar() {
             ))}
             <li>
               <a
-                href="https://ments.ezzyforms.in/forms/6841e534f06f98d51b4f"
+                href="https://docs.google.com/forms/d/e/1FAIpQLSeKLPysBVutn6RuNDrRpzC8oozVXOJ4FC7SnRuOZ_9Y8fM8cw/viewform?usp=header"
                 target="_blank" rel="noopener noreferrer"
                 className="block"
                 onClick={() => setOpen(false)}
