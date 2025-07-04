@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 const NAV_ITEMS = [
   { label: "Blogs", href: "https://blog.ments.app" },
   { label: "Careers", href: "/careers" },
+  { label: "About Us", href: "/about"}
 ];
 
 export default function Navbar() {
