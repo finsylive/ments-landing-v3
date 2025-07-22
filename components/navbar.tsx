@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 const NAV_ITEMS = [
   { label: "Blog", href: "/blog" },
   { label: "Careers", href: "/careers" },
+  { label: "Events", href: "/events"},
   { label: "About Us", href: "/about"}
 ];
 
@@ -17,7 +18,7 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className="fixed top-4 left-0 right-0 z-50 flex justify-center box-border"
+      className="fixed top-4 left-0 right-0 z-50 flex justify-center box-border px-4 md:px-6"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
