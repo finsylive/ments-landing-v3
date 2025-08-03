@@ -7,7 +7,7 @@ import Image from "next/image"
 export default function HeroSection() {
   return (
     <div className="w-full bg-gray-50">
-      <div className="container mx-auto px-4 sm:px-6 pt-32 pb-16 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 pt-20 pb-16 max-w-7xl">
       <div className="flex items-center justify-center min-h-[80vh] relative">
         {/* Responsive Flex: column on mobile, row on md+ */}
         <div className="flex flex-col-reverse md:flex-row items-center 

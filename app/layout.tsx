@@ -27,6 +27,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer /> {/* <-- Add Footer here */}
+        {/* ...existing footer JSX... */}
       </body>
     </html>
   )
