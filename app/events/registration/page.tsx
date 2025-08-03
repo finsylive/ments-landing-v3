@@ -102,7 +102,7 @@ export default function RegistrationPage() {
               {event.description && (
                 <div className="prose max-w-none">
                   <h3 className="text-lg font-semibold text-primary mb-2">About</h3>
-                  <p className="text-muted-foreground">{event.description}</p>
+                  <p className="text-muted-foreground">{event.About}</p>
                 </div>
               )}
 
