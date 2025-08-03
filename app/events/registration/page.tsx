@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
-import { UserPlus } from "lucide-react";
+import { UserPlus, Users, Target, Clock, Award, MapPin } from "lucide-react";
 import { supabase } from '@/lib/supabaseClient';
 
 export default function RegistrationPage() {
@@ -88,10 +88,64 @@ export default function RegistrationPage() {
         {event && (
           <div className="mb-6 w-full text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">{event.title}</h2>
-            <div className="text-sm text-muted-foreground mb-2">
+            <div className="text-sm text-muted-foreground mb-4">
               {event.date ? new Date(event.date).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'short' }) : 'TBA'}
+              {event.location && (
+                <div className="flex items-center mt-1">
+                  <MapPin className="w-4 h-4 mr-1" />
+                  <span>{event.location}</span>
+                </div>
+              )}
             </div>
-            <div className="text-base text-muted-foreground">{event.description}</div>
+            
+            <div className="w-full space-y-6 text-left">
+              {event.description && (
+                <div className="prose max-w-none">
+                  <h3 className="text-lg font-semibold text-primary mb-2">About</h3>
+                  <p className="text-muted-foreground">{event.description}</p>
+                </div>
+              )}
+
+              {event.Who_Should_Participate && (
+                <div className="prose max-w-none">
+                  <h3 className="text-lg font-semibold text-primary mb-2 flex items-center">
+                    <Users className="w-5 h-5 mr-2" />
+                    Who Should Participate
+                  </h3>
+                  <p className="text-muted-foreground">{event.Who_Should_Participate}</p>
+                </div>
+              )}
+
+              {event.Why_Participate && (
+                <div className="prose max-w-none">
+                  <h3 className="text-lg font-semibold text-primary mb-2 flex items-center">
+                    <Target className="w-5 h-5 mr-2" />
+                    Why Participate
+                  </h3>
+                  <p className="text-muted-foreground">{event.Why_Participate}</p>
+                </div>
+              )}
+
+              {event.Event_Flow && (
+                <div className="prose max-w-none">
+                  <h3 className="text-lg font-semibold text-primary mb-2 flex items-center">
+                    <Clock className="w-5 h-5 mr-2" />
+                    Event Flow
+                  </h3>
+                  <div className="text-muted-foreground whitespace-pre-line">{event.Event_Flow}</div>
+                </div>
+              )}
+
+              {event.Judging_Criteria && (
+                <div className="prose max-w-none">
+                  <h3 className="text-lg font-semibold text-primary mb-2 flex items-center">
+                    <Award className="w-5 h-5 mr-2" />
+                    Judging Criteria
+                  </h3>
+                  <div className="text-muted-foreground whitespace-pre-line">{event.Judging_Criteria}</div>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
