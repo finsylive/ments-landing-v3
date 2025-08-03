@@ -99,7 +99,7 @@ export default function RegistrationPage() {
             </div>
             
             <div className="w-full space-y-6 text-left">
-              {event.description && (
+              {event.About && (
                 <div className="prose max-w-none">
                   <h3 className="text-lg font-semibold text-primary mb-2">About</h3>
                   <p className="text-muted-foreground">{event.About}</p>
