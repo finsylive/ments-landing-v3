@@ -49,20 +49,58 @@ export default function RegistrationPage() {
     e.preventDefault();
     setError(null);
     const { name, email, phone, organization, designation, other_designation, linkedin, city } = form;
+    if (!event) {
+      setError('No event found. Please try again later.');
+      return;
+    }
+    
     const submitObj = {
       name, email, phone, organization, designation,
       linkedin, city,
-      other_designation
+      other_designation,
+      Event_id: event.id // Add the Event_id as a foreign key
     };
     if (designation === 'Other') {
       submitObj.designation = form.other_designation || 'Other';
       submitObj.other_designation = form.other_designation;
     }
-    const { error } = await supabase.from('registrations').insert([submitObj]);
-    if (error) {
-      setError('Registration failed. Please try again.');
-    } else {
-      setSubmitted(true);
+    try {
+      console.log('Submitting registration data:', JSON.stringify(submitObj, null, 2));
+      
+      // First check if we can query the table
+      const { data: testData, error: testError } = await supabase
+        .from('registrations')
+        .select('*')
+        .limit(1);
+      
+      if (testError) {
+        console.error('Table access error:', testError);
+        throw new Error(`Cannot access registrations table: ${testError.message}`);
+      }
+      
+      // Try the insert
+      const { data, error } = await supabase
+        .from('registrations')
+        .insert([submitObj])
+        .select()
+        .single();
+      
+      console.log('Registration response:', { data, error });
+      
+      if (error) {
+        console.error('Registration error details:', {
+          message: error.message,
+          code: error.code,
+          details: error.details,
+          hint: error.hint
+        });
+        throw error;
+      } else {
+        setSubmitted(true);
+      }
+    } catch (err) {
+      console.error('Unexpected error during registration:', err);
+      setError('An unexpected error occurred. Please try again later.');
     }
   };
 
