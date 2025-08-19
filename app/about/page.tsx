@@ -5,7 +5,7 @@ import { OurStorySection } from "@/components/about/our-story-section"
 import { MeetTheTeamSection } from "@/components/about/meet-the-team-section"
 import { MeetOurMentorsSection } from "@/components/about/meet-our-mentors-section"
 import { OurValuesSection } from "@/components/about/our-values-section"
-import { CallToActionSection } from "@/components/about/call-to-action-section"
+
 
 export default function AboutPage() {
   return (
