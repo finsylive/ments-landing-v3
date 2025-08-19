@@ -21,6 +21,13 @@ function OpeningsSection() {
       description: "Create engaging motion graphics and animations, telling stories for our digital platforms.",
       applyLink: "https://docs.google.com/forms/d/e/1FAIpQLSe0zOqnyhoBNahRe7VjsWKel3pu8X5fvt9qqURuVgqeAsp94w/viewform?usp=header",
     },
+    {
+      title: "Video Editor",
+      type: "Part-time / Internship (Unpaid, with perks)",
+      location: "Remote",
+      description: "Edit videos for our content creators or create motion graphics explainers. Includes free tool access (₹5,000), freelance opportunities via partner startups, and a certificate & LOR from a startup backed by IIT Madras.",
+      applyLink: "https://docs.google.com/forms/d/e/1FAIpQLSdJ66Pe7nLQDo0QsYLBMCYsUXy5j2n7C4HNb099HHLk9PMB-A/viewform?usp=header",
+    },
     
   ];
 
