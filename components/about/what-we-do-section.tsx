@@ -29,17 +29,20 @@ export function WhatWeDoSection() {
       <div className="absolute -bottom-40 -right-40 h-80 w-80 rounded-full bg-green-100 opacity-30 blur-3xl" />
 
       <div className="container mx-auto px-4">
-        <h2 className="mb-16 text-center text-4xl font-semibold md:text-5xl lg:text-6xl">What We Do</h2>
+        <div className="mx-auto max-w-3xl text-center mb-12">
+          <h2 className="mb-4 text-center text-4xl font-semibold md:text-5xl lg:text-6xl">What We Do</h2>
+          <p className="text-gray-600 md:text-lg">A focused suite to showcase, recruit, and raise—built for early-stage teams.</p>
+        </div>
 
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-8 md:grid-cols-3">
             {features.map((feature, index) => (
               <Card
                 key={index}
-                className="rounded-2xl bg-white p-6 shadow-lg transition-all hover:scale-105 hover:shadow-xl"
+                className="rounded-2xl bg-white p-6 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl"
               >
                 <CardHeader className="text-center pb-4">
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100 text-green-600">
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-green-100 text-green-600 ring-1 ring-green-200">
                     {feature.icon}
                   </div>
                   <CardTitle className="text-xl">{feature.title}</CardTitle>

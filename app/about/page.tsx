@@ -9,13 +9,14 @@ import { CallToActionSection } from "@/components/about/call-to-action-section"
 
 export default function AboutPage() {
   return (
-    <main className="flex w-full flex-col items-center gap-32 ">
+    <main className="flex w-full flex-col items-center gap-28 md:gap-32 ">
       <HeroSection />
       <WhatWeDoSection />
       <OurStorySection />
       <MeetTheTeamSection />
       <MeetOurMentorsSection />
       <OurValuesSection />
+
     </main>
   )
 }
