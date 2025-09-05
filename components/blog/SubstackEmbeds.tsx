@@ -50,6 +50,11 @@ export default function SubstackEmbeds() {
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-2 gap-8 place-items-center">
 			<SubstackPost
+				title="AI in Everyday Life by Ments.app"
+				subtitle="How Artificial Intelligence is Shaping Our Daily Routine"
+				href="https://mentsapp.substack.com/p/ai-in-everyday-life"
+			/>
+			<SubstackPost
 				title="How to Conduct Market Research for a Startup by Ments.app"
 				subtitle="Market Research—The Step Most Founders Skip"
 				href="https://mentsapp.substack.com/p/how-to-conduct-market-research-for"
