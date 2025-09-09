@@ -7,7 +7,7 @@ const teamMembers = [
   { name: "Shriyash", role: "Co-Founder & CTO", initials: "SH", education: "IIT Madras", image: "/team/shriyash.png" },
   { name: "Adarsh", role: "Development Officer", initials: "AD", education: "Hindu College, DU", image: "/team/adarsh.png" },
   { name: "Dev", role: "Head of Marketing", initials: "DE", education: "Punjab University", image: "/team/dev.png" },
-  { name: "Shobit", role: "Research", initials: "SH", education: "IIT Madras", image: "/team/shobit.jpg" },
+  { name: "Abhijeet Kumar", role: "Events and Business management", initials: "AK", education: "IIT Madras", image: "/team/abhijeet.jpg" },
 ]
 
 export function MeetTheTeamSection() {
