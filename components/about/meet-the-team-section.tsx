@@ -6,7 +6,7 @@ const teamMembers = [
   { name: "Ayushman", role: "Co-Founder & COO", initials: "AY", education: "IIT Madras", image: "/team/ayushman.jpeg" },
   { name: "Shriyash", role: "Co-Founder & CTO", initials: "SH", education: "IIT Madras", image: "/team/shriyash.jpg" },
   { name: "Dev", role: "Head of Marketing", initials: "DE", education: "Punjab University", image: "/team/dev.png" },
-  { name: "Abhijeet Kumar", role: "Events and Business management", initials: "AK", education: "IIT Madras", image: "/team/abhijeet.jpg" },
+  { name: "Abhijeet Kumar", role: "Events and Business management", initials: "AK", education: "IIT Madras", image: "/team/abhijeet.png" },
   { name: "Rithik", role: "Content Creator", initials: "Ri", education: "IIT Madras", image: "/team/ritik.jpg" },
   { name: "Vaibhwee", role: "Content Creator", initials: "Va", education: "IIT Madras", image: "/team/vaibhwee.jpeg" },
   { name: "Shristi", role: "Social Media Manager", initials: "Sh", education: "IIT Madras", image: "/team/shristi.jpeg" },
