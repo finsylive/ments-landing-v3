@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/ayushmansingh/code/MentsV3.3/ments-landing /app/events/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
