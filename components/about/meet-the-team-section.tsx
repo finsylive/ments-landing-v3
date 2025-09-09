@@ -2,13 +2,12 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 
 const teamMembers = [
-  { name: "RajKamal Kaushal", role: "Co-Founder & CEO", initials: "KR", education: "IIT Madras", image: "/team/krishna.jpeg" },
+  { name: "RajKamal", role: "Co-Founder & CEO", initials: "KR", education: "IIT Madras", image: "/team/krishna.jpeg" },
   { name: "Ayushman", role: "Co-Founder & COO", initials: "AY", education: "IIT Madras", image: "/team/ayushman.jpeg" },
   { name: "Shriyash", role: "Co-Founder & CTO", initials: "SH", education: "IIT Madras", image: "/team/shriyash.jpg" },
   { name: "Dev", role: "Head of Marketing", initials: "DE", education: "Punjab University", image: "/team/dev.png" },
   { name: "Abhijeet Kumar", role: "Events and Business management", initials: "AK", education: "IIT Madras", image: "/team/abhijeet.jpg" },
   { name: "Rithik", role: "Content", initials: "Ri", education: "IIT Madras", image: "/team/ritik.jpg" },
-  { name: "Shrishti", role: "Content", initials: "Sh", education: "IIT Madras", image: "/team/shrishti.jpg" },
 ]
 
 export function MeetTheTeamSection() {
