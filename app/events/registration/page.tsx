@@ -275,7 +275,7 @@ export default function RegistrationPage() {
                 className="airtable-embed w-full min-h-[600px] relative z-10 bg-white" 
                 src="https://airtable.com/embed/appzd95k47AOWSMIp/pagsGVUKkXTMBWRaP/form" 
                 frameBorder="0" 
-                onWheel={() => {}}
+                onWheel={(e) => e.preventDefault()}
                 onLoad={(e) => {
                   // Hide loading state when iframe loads
                   const loader = e.currentTarget.previousElementSibling as HTMLElement;
