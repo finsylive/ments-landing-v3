@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://ments.app
+
+# Sitemaps
+Sitemap: https://ments.app/sitemap.xml

@@ -188,7 +188,7 @@ export default function RegistrationPage() {
         )}
       </div>
       {/* Registration Form Container */}
-      <div className="relative z-10 w-full max-w-lg mx-auto flex flex-col items-center bg-white/95 rounded-3xl shadow-xl border border-gray-100 p-8 md:p-10">
+      {/* <div className="relative z-10 w-full max-w-lg mx-auto flex flex-col items-center bg-white/95 rounded-3xl shadow-xl border border-gray-100 p-8 md:p-10">
         <h2 className="text-2xl md:text-3xl font-bold mb-2 text-primary text-center">Event Registration</h2>
         <p className="mb-6 text-muted-foreground text-center text-base">Fill in your details to secure your spot at the event.</p>
         {submitted ? (
@@ -254,6 +254,42 @@ export default function RegistrationPage() {
             <button type="submit" className="bg-primary text-primary-foreground px-8 py-3 rounded-md hover:bg-primary/90 transition text-lg font-semibold w-full">Register</button>
           </form>
         )}
+      </div> */}
+      <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+          <div className="p-6 md:p-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Register for the Event</h2>
+              <p className="text-gray-600">Fill out the form below to secure your spot</p>
+            </div>
+            
+            <div className="relative w-full overflow-hidden rounded-lg bg-gray-50 border border-gray-200">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="animate-pulse flex space-x-2">
+                  <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+                  <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+                  <div className="w-3 h-3 bg-gray-300 rounded-full"></div>
+                </div>
+              </div>
+              <iframe 
+                className="airtable-embed w-full min-h-[600px] relative z-10 bg-white" 
+                src="https://airtable.com/embed/appzd95k47AOWSMIp/pagsGVUKkXTMBWRaP/form" 
+                frameBorder="0" 
+                onWheel={() => {}}
+                onLoad={(e) => {
+                  // Hide loading state when iframe loads
+                  const loader = e.currentTarget.previousElementSibling as HTMLElement;
+                  if (loader) loader.style.display = 'none';
+                }}
+                style={{ background: 'transparent' }}
+              ></iframe>
+            </div>
+            
+            <div className="mt-6 text-center text-sm text-gray-500">
+              <p>Having trouble with the form? <a href="https://airtable.com/appzd95k47AOWSMIp/pagsGVUKkXTMBWRaP/form" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Open in a new tab</a></p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
