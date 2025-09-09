@@ -15,6 +15,7 @@ const mentors: Mentor[] = [
     title: "Lead Scientist, IISc Bengaluru",
     expertise: "Deep-tech commercialization, research to market, IP strategy",
     initials: "RS",
+    image: "/mentors/ravishankar.jpg",
   },
   {
     name: "Sarat",
@@ -23,10 +24,11 @@ const mentors: Mentor[] = [
     initials: "SA",
   },
   {
-    name: "Jayath",
-    title: "Chartered Accountant",
-    expertise: "Financial modeling, fundraising readiness, and audits",
-    initials: "JA",
+    name: "Vineeth Seth",
+    title: "Amazon Fresh USA Lead Engineer",
+    expertise: "Leadership, strategy, and execution",
+    initials: "VS",
+    image: "/mentors/vineeth.jpg",
   },
 ]
 
