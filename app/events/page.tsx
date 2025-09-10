@@ -160,7 +160,7 @@ export default function EventsPage() {
                 </button>
 
                 <a
-                  href="https://example.com/dummy-brochure.pdf" // replace with GDrive link
+                  href="Ments (7).pdf" // replace with GDrive link
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full rounded-xl border px-6 py-3 font-semibold text-gray-800 hover:bg-gray-50"
