@@ -19,7 +19,7 @@ export default function ReferralsPage() {
         
         const { data, error } = await supabase
           .from('jobs')
-          .select('id, company_name, role, about_role, experience_required, created_at')
+          .select('id, company_name, role, about_role, experience_required, created_at, job_type, location, salary_range, skills_required, responsibilities, benefits')
           .eq('is_active', true)
           .order('created_at', { ascending: false });
 

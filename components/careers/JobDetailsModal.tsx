@@ -55,6 +55,12 @@ export default function JobDetailsModal({ job, isOpen, onClose }: JobDetailsModa
                 <p className="text-gray-700 dark:text-gray-300">{job.location}</p>
               </div>
             )}
+            {job.salary_range && (
+              <div>
+                <h4 className="font-medium text-gray-900 dark:text-gray-100">Salary Range</h4>
+                <p className="text-gray-700 dark:text-gray-300">{job.salary_range}</p>
+              </div>
+            )}
             <div>
               <h4 className="font-medium text-gray-900 dark:text-gray-100">Posted On</h4>
               <p className="text-gray-700 dark:text-gray-300">
@@ -67,18 +73,42 @@ export default function JobDetailsModal({ job, isOpen, onClose }: JobDetailsModa
             </div>
           </div>
           
-          {Array.isArray(job.skills_required) && job.skills_required.length > 0 && (
-            <div>
-              <h4 className="font-medium text-gray-900 dark:text-gray-100 mb-2">Skills Required</h4>
-              <div className="flex flex-wrap gap-2">
-                {job.skills_required?.map((skill, index) => (
-                  <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
-                    {skill}
-                  </span>
-                ))}
+          <div className="space-y-6">
+            {Array.isArray(job.skills_required) && job.skills_required.length > 0 && (
+              <div>
+                <h4 className="font-semibold text-lg mb-3">Skills Required</h4>
+                <div className="flex flex-wrap gap-2">
+                  {job.skills_required.map((skill, index) => (
+                    <span key={index} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+
+            {Array.isArray(job.responsibilities) && job.responsibilities.length > 0 && (
+              <div>
+                <h4 className="font-semibold text-lg mb-3">Responsibilities</h4>
+                <ul className="space-y-2 pl-5 list-disc text-gray-700 dark:text-gray-300">
+                  {job.responsibilities.map((item, index) => (
+                    <li key={index} className="pl-2">{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {Array.isArray(job.benefits) && job.benefits.length > 0 && (
+              <div>
+                <h4 className="font-semibold text-lg mb-3">Benefits</h4>
+                <ul className="space-y-2 pl-5 list-disc text-gray-700 dark:text-gray-300">
+                  {job.benefits.map((benefit, index) => (
+                    <li key={index} className="pl-2">{benefit}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
           
           <DialogFooter className="sm:justify-between">
             <Button variant="outline" onClick={onClose}>
