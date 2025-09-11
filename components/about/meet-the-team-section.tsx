@@ -4,10 +4,15 @@ import { Badge } from "@/components/ui/badge";
 const teamMembers = [
   { name: "RajKamal", role: "Co-Founder & CEO", initials: "KR", education: "IIT Madras", image: "/team/krishna.jpeg" },
   { name: "Ayushman", role: "Co-Founder & COO", initials: "AY", education: "IIT Madras", image: "/team/ayushman.jpeg" },
-  { name: "Shriyash", role: "Co-Founder & CTO", initials: "SH", education: "IIT Madras", image: "/team/shriyash.jpg" },
+  { name: "Shriyash", role: "Co-Founder & CTO", initials: "SH", education: "IIT Madras", image: "/team/shriyash.png" },
   { name: "Dev", role: "Head of Marketing", initials: "DE", education: "Punjab University", image: "/team/dev.png" },
   { name: "Abhijeet Kumar", role: "Events and Business management", initials: "AK", education: "IIT Madras", image: "/team/abhijeet.png" },
-  { name: "Rithik", role: "Content", initials: "Ri", education: "IIT Madras", image: "/team/ritik.jpg" },
+  { name: "Rithik", role: "Content Creator", initials: "Ri", education: "IIT Madras", image: "/team/ritik.jpg" },
+  { name: "Vaibhwee", role: "Business Development", initials: "Va", education: "IIT Madras", image: "/team/vaibhwee.jpeg" },
+  { name: "Shrishti", role: "Social Media Manager", initials: "Ri", education: "IIT Madras", image: "/team/shrishti.jpg" }, 
+  { name: "Ashish", role: "Web Developer", initials: "Ri", education: "IIT Madras", image: "/team/ashish.png" }, 
+  { name: "Siddharth", role: "Graphic Designer", initials: "Ri", education: "IIT Madras", image: "/team/Siddarth.jpg" }, 
+
 ]
 
 export function MeetTheTeamSection() {
