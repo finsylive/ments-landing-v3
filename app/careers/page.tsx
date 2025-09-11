@@ -3,6 +3,7 @@ import ValuesSection from "@/components/careers/ValuesSection";
 import BenefitsSection from "@/components/careers/BenefitsSection";
 import LocationSection from "@/components/careers/LocationSection";
 import OpeningsSection from "@/components/careers/OpeningsSection";
+import ReferralSection from "@/components/careers/ReferralSection";
 
 
 export default function CareersPage() {
@@ -13,6 +14,7 @@ export default function CareersPage() {
       <BenefitsSection />
       <LocationSection />
       <OpeningsSection />
+      <ReferralSection />
     </main>
     
   )
