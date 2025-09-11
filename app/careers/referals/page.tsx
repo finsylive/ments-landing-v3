@@ -5,7 +5,6 @@ import { supabase } from "@/lib/supabaseClient";
 import { JobListing } from "@/types/referral";
 import JobListingCard from "@/components/careers/JobListingCard";
 import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
 
 export default function ReferralsPage() {
   const [jobs, setJobs] = useState<JobListing[]>([]);
@@ -103,7 +102,7 @@ export default function ReferralsPage() {
         </section>
       </main>
       
-      <Footer />
+      
     </div>
   );
 }
