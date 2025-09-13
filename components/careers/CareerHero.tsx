@@ -74,12 +74,20 @@ function CareerHero() {
           <p className="mb-10 text-xl text-gray-600 md:text-2xl">
             Be part of a team turning vision into opportunity—for everyone.
           </p>
-          <a
-            href="#openings"
-            className="inline-flex items-center justify-center rounded-full bg-black px-8 py-3 text-base font-medium text-white transition-colors hover:bg-gray-800"
-          >
-            See open roles
-          </a>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a
+              href="#openings"
+              className="inline-flex items-center justify-center rounded-full bg-black px-8 py-3 text-base font-medium text-white transition-colors hover:bg-gray-800"
+            >
+              Join Ments Team
+            </a>
+            <a
+              href="/careers/referals"
+              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-purple-600 to-blue-600 px-8 py-3 text-base font-medium text-white transition-colors hover:from-purple-700 hover:to-blue-700"
+            >
+              Apply to Startups
+            </a>
+          </div>
         </div>
       </div>
 
