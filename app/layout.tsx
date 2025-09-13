@@ -3,7 +3,8 @@ import type { Metadata } from "next"
 import { Poppins } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/navbar"
-import Footer from "@/components/footer" // <-- import Footer
+import Footer from "@/components/footer"
+import BodyContent from "@/components/BodyContent"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,11 +24,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
-        <Navbar />
-        {children}
-        <Footer /> {/* <-- Add Footer here */}
-        {/* ...existing footer JSX... */}
+      <body className={poppins.className} suppressHydrationWarning>
+        <BodyContent>
+          <Navbar />
+          {children}
+          <Footer />
+        </BodyContent>
       </body>
     </html>
   )
