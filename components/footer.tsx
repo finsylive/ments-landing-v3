@@ -17,10 +17,17 @@ export default function Footer() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            {["Home", "Features", "Blog", "Careers", "About us"].map((item, index) => (
+            {[
+              { name: "Home", href: "/" },
+              { name: "Features", href: "/#features" },
+              { name: "Events", href: "/events" },
+              { name: "Blog", href: "/blog" },
+              { name: "Careers", href: "/careers" },
+              { name: "About us", href: "/about" }
+            ].map((item, index) => (
               <motion.a
-                key={item}
-                href="#"
+                key={item.name}
+                href={item.href}
                 className="hover:text-white transition-colors duration-200 text-lg"
                 whileHover={{ y: -2 }}
                 initial={{ opacity: 0, y: 20 }}
@@ -28,7 +35,7 @@ export default function Footer() {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                {item}
+                {item.name}
               </motion.a>
             ))}
           </motion.div>

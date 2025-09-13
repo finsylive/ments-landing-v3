@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Read(//Users/ayushmansingh/code/MentsV3.3/ments-landing /app/events/**)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Read(//Users/ayushmansingh/code/MentsV3.3/**)"
     ],
     "deny": [],
     "ask": []
