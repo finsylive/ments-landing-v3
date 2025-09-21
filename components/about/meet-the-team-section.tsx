@@ -11,7 +11,7 @@ const teamMembers = [
   { name: "Vaibhwee", role: "Business Development", initials: "Va", education: "IIT Madras", image: "/team/vaibhwee.jpeg" },
   { name: "Shrishti", role: "Social Media Manager", initials: "Ri", education: "IIT Madras", image: "/team/shrishti.jpg" }, 
   { name: "Ashish", role: "Web Developer", initials: "Ri", education: "IIT Madras", image: "/team/ashish.png" }, 
-  { name: "Siddhartha Kushwaha", role: "Content Creator", initials: "SK", education: "IIT Madras", image: "/team/Siddarth.jpg" }, 
+  { name: "Siddhartha Kushwaha", role: "Graphic Desginer", initials: "SK", education: "IIT Madras", image: "/team/Siddarth.jpg" }, 
 
 ]
 
