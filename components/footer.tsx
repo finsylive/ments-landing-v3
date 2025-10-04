@@ -23,7 +23,9 @@ export default function Footer() {
               { name: "Events", href: "/events" },
               { name: "Blog", href: "/blog" },
               { name: "Careers", href: "/careers" },
-              { name: "About us", href: "/about" }
+              { name: "About us", href: "/about" },
+              { name: "CSAE Policy", href: "/CSAE-Policy" },
+              { name: "Legal", href: "/legal" }
             ].map((item, index) => (
               <motion.a
                 key={item.name}
