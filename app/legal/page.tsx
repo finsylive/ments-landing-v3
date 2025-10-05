@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Footer from "@/components/footer";
 import Link from "next/link";
 
 export default function LegalDocument() {
@@ -12,11 +11,11 @@ export default function LegalDocument() {
     const handleScroll = () => {
       // Show/hide scroll to top button
       setShowScrollTop(window.scrollY > 500);
-      
+
       // Update active section based on scroll position
       const sections = document.querySelectorAll('section[id]');
       let currentSection = "";
-      
+
       sections.forEach((section: Element) => {
         const rect = section.getBoundingClientRect();
         const sectionTop = rect.top + window.scrollY - 100;
@@ -24,10 +23,10 @@ export default function LegalDocument() {
           currentSection = section.getAttribute('id') || "";
         }
       });
-      
+
       setActiveSection(currentSection);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -47,11 +46,12 @@ export default function LegalDocument() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <>
+      <div className="min-h-screen bg-white">
       {/* Scroll to top button */}
       <button 
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 z-50 p-2 rounded-full bg-emerald-500 text-white shadow-lg transition-opacity duration-300 hover:bg-emerald-600 ${showScrollTop ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed bottom-8 right-8 z-50 p-2 rounded-full bg-emerald-600 text-white shadow-md transition-opacity duration-300 hover:bg-emerald-700 ${showScrollTop ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         aria-label="Scroll to top"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -60,22 +60,22 @@ export default function LegalDocument() {
       </button>
 
       <div className="pt-24 pb-16 px-4 md:px-8 max-w-6xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-serif bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent mb-4 text-center">
+        <h1 className="text-4xl md:text-5xl font-serif text-gray-900 mb-4 text-center">
           Ments – Legal Documentation
         </h1>
-        <p className="text-center text-gray-400 italic mb-8">
+        <p className="text-center text-gray-500 italic mb-8">
           Last updated: May 8, 2025
         </p>
         
         {/* Table of Contents */}
-        <div className="mb-12 p-6 bg-white/5 rounded-xl border border-white/10 shadow-lg">
-          <h2 className="text-xl font-bold text-emerald-300 mb-4">Table of Contents</h2>
+        <div className="mb-12 p-6 bg-white rounded-xl border border-gray-200 shadow-sm">
+          <h2 className="text-xl font-bold text-gray-900 mb-4">Table of Contents</h2>
           <nav className="flex flex-wrap gap-2">
             {tocItems.map((item) => (
               <Link 
                 key={item.id} 
                 href={`#${item.id}`} 
-                className={`px-4 py-2 rounded-md transition-colors ${activeSection === item.id ? 'bg-emerald-500/20 text-emerald-300' : 'hover:bg-white/10 text-white/80'}`}
+                className={`px-4 py-2 rounded-md transition-colors border ${activeSection === item.id ? 'border-emerald-600 bg-emerald-50 text-emerald-700' : 'border-gray-200 hover:bg-gray-50 text-gray-700'}`}
               >
                 {item.title}
               </Link>
@@ -83,7 +83,7 @@ export default function LegalDocument() {
           </nav>
         </div>
 
-        <div className="text-white/80 mb-12 p-6 bg-white/5 rounded-xl border border-white/10">
+        <div className="text-gray-700 mb-12 p-6 bg-white rounded-xl border border-gray-200">
           <p className="mb-6">
             Welcome to Ments ("the App"), a mentor‑centric social network, in India ("we", "us", or "our"). 
             Below you will find the core legal documents required for publishing and operating the App on Google Play:
@@ -97,10 +97,10 @@ export default function LegalDocument() {
               { title: "Cookie & Tracking Technologies Notice", subtitle: "" },
             ].map((item, index) => (
               <div key={index} className="flex items-start">
-                <span className="text-emerald-300 font-bold mr-2">•</span>
+                <span className="text-emerald-600 font-bold mr-2">•</span>
                 <div>
-                  <span className="font-bold">{item.title}</span>
-                  {item.subtitle && <span className="text-gray-400 text-sm"> {item.subtitle}</span>}
+                  <span className="font-semibold text-gray-900">{item.title}</span>
+                  {item.subtitle && <span className="text-gray-500 text-sm"> {item.subtitle}</span>}
                 </div>
               </div>
             ))}
@@ -108,12 +108,12 @@ export default function LegalDocument() {
         </div>
 
         {/* Terms & Conditions Section */}
-        <section id="terms" className="mb-16 p-6 bg-white/5 rounded-xl border border-white/10 shadow-lg scroll-mt-24">
-          <h2 className="text-3xl font-bold text-emerald-300 mb-6 flex items-center">
-            <span className="bg-emerald-500/20 text-emerald-300 w-10 h-10 rounded-full flex items-center justify-center mr-3 text-xl">1</span>
+        <section id="terms" className="mb-16 p-6 bg-white rounded-xl border border-gray-200 shadow-sm scroll-mt-24">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+            <span className="bg-emerald-50 text-emerald-700 w-10 h-10 rounded-full flex items-center justify-center mr-3 text-xl border border-emerald-200">1</span>
             Terms & Conditions of Use
           </h2>
-          <div className="w-full h-1 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full mb-8"></div>
+          <div className="w-full h-px bg-gray-200 rounded-full mb-8"></div>
           
           <div className="space-y-8">
             {[
@@ -133,9 +133,9 @@ export default function LegalDocument() {
               { title: "1.14 Contact", content: "Questions about these Terms? Email us at Support@ments.app." },
             ].map((item, index) => (
               <div key={index}>
-                <h3 className="text-xl font-bold mb-3 text-white bg-white/5 p-2 pl-4 rounded-md border-l-4 border-emerald-300">{item.title}</h3>
+                <h3 className="text-xl font-semibold mb-3 text-gray-900 bg-gray-50 p-2 pl-4 rounded-md border-l-4 border-emerald-500">{item.title}</h3>
                 <div className="whitespace-pre-line">
-                  <p className="text-white/80">{item.content}</p>
+                  <p className="text-gray-700">{item.content}</p>
                 </div>
               </div>
             ))}
@@ -143,12 +143,12 @@ export default function LegalDocument() {
         </section>
 
         {/* Privacy Policy Section */}
-        <section id="privacy" className="mb-16 p-6 bg-white/5 rounded-xl border border-white/10 shadow-lg scroll-mt-24">
-          <h2 className="text-3xl font-bold text-emerald-300 mb-6 flex items-center">
-            <span className="bg-emerald-500/20 text-emerald-300 w-10 h-10 rounded-full flex items-center justify-center mr-3 text-xl">2</span>
+        <section id="privacy" className="mb-16 p-6 bg-white rounded-xl border border-gray-200 shadow-sm scroll-mt-24">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+            <span className="bg-emerald-50 text-emerald-700 w-10 h-10 rounded-full flex items-center justify-center mr-3 text-xl border border-emerald-200">2</span>
             Privacy Policy
           </h2>
-          <div className="w-full h-1 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full mb-8"></div>
+          <div className="w-full h-px bg-gray-200 rounded-full mb-8"></div>
 
           <div className="space-y-8">
             {[
@@ -167,9 +167,9 @@ export default function LegalDocument() {
               { title: "2.13 Contact", content: "Privacy questions? Email Support@ments.app or write to: Data Protection Officer, Ments Labs Pvt. Ltd., 91springboard, Andheri East, Mumbai 400069, India." },
             ].map((item, index) => (
               <div key={index}>
-                <h3 className="text-xl font-bold mb-3 text-white bg-white/5 p-2 pl-4 rounded-md border-l-4 border-emerald-300">{item.title}</h3>
+                <h3 className="text-xl font-semibold mb-3 text-gray-900 bg-gray-50 p-2 pl-4 rounded-md border-l-4 border-emerald-500">{item.title}</h3>
                 <div className="whitespace-pre-line">
-                  <p className="text-white/80">{item.content}</p>
+                  <p className="text-gray-700">{item.content}</p>
                 </div>
               </div>
             ))}
@@ -177,14 +177,14 @@ export default function LegalDocument() {
         </section>
 
         {/* Community Guidelines Section */}
-        <section id="community" className="mb-16 p-6 bg-white/5 rounded-xl border border-white/10 shadow-lg scroll-mt-24">
-          <h2 className="text-3xl font-bold text-emerald-300 mb-6 flex items-center">
-            <span className="bg-emerald-500/20 text-emerald-300 w-10 h-10 rounded-full flex items-center justify-center mr-3 text-xl">3</span>
+        <section id="community" className="mb-16 p-6 bg-white rounded-xl border border-gray-200 shadow-sm scroll-mt-24">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+            <span className="bg-emerald-50 text-emerald-700 w-10 h-10 rounded-full flex items-center justify-center mr-3 text-xl border border-emerald-200">3</span>
             Community Guidelines
           </h2>
-          <div className="w-full h-1 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full mb-8"></div>
+          <div className="w-full h-px bg-gray-200 rounded-full mb-8"></div>
 
-          <p className="text-white/80 mb-6">A brief code of conduct that complements the Terms:</p>
+          <p className="text-gray-700 mb-6">A brief code of conduct that complements the Terms:</p>
 
           <div className="space-y-4">
             {[
@@ -195,10 +195,10 @@ export default function LegalDocument() {
               { title: "Report violations", content: "in‑app. Repeated breaches may lead to suspension." },
             ].map((item, index) => (
               <div key={index} className="flex items-start">
-                <span className="text-emerald-300 font-bold mr-2">•</span>
+                <span className="text-emerald-600 font-bold mr-2">•</span>
                 <div>
-                  <span className="font-bold">{item.title}</span>
-                  {item.content && <span className="text-gray-400"> — {item.content}</span>}
+                  <span className="font-semibold text-gray-900">{item.title}</span>
+                  {item.content && <span className="text-gray-600"> — {item.content}</span>}
                 </div>
               </div>
             ))}
@@ -206,14 +206,14 @@ export default function LegalDocument() {
         </section>
 
         {/* Cookie Notice Section */}
-        <section id="cookies" className="mb-16 p-6 bg-white/5 rounded-xl border border-white/10 shadow-lg scroll-mt-24">
-          <h2 className="text-3xl font-bold text-emerald-300 mb-6 flex items-center">
-            <span className="bg-emerald-500/20 text-emerald-300 w-10 h-10 rounded-full flex items-center justify-center mr-3 text-xl">4</span>
+        <section id="cookies" className="mb-16 p-6 bg-white rounded-xl border border-gray-200 shadow-sm scroll-mt-24">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+            <span className="bg-emerald-50 text-emerald-700 w-10 h-10 rounded-full flex items-center justify-center mr-3 text-xl border border-emerald-200">4</span>
             Cookie & Tracking Technologies Notice
           </h2>
-          <div className="w-full h-1 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full mb-8"></div>
+          <div className="w-full h-px bg-gray-200 rounded-full mb-8"></div>
 
-          <p className="text-white/80 mb-6">We and our partners use local storage and similar technologies to:</p>
+          <p className="text-gray-700 mb-6">We and our partners use local storage and similar technologies to:</p>
 
           <div className="space-y-2 mb-6">
             {[
@@ -222,26 +222,27 @@ export default function LegalDocument() {
               "Measure engagement & fix bugs"
             ].map((item, index) => (
               <div key={index} className="flex items-start">
-                <span className="text-emerald-300 font-bold mr-2">•</span>
-                <span className="text-white/80">{item}</span>
+                <span className="text-emerald-600 font-bold mr-2">•</span>
+                <span className="text-gray-700">{item}</span>
               </div>
             ))}
           </div>
 
-          <p className="text-white/80">You can clear or block cookies in your browser settings, but some features may not work properly.</p>
+          <p className="text-gray-700">You can clear or block cookies in your browser settings, but some features may not work properly.</p>
         </section>
 
         {/* Acknowledgement Section */}
-        <section id="acknowledgement" className="mb-16 p-6 bg-white/5 rounded-xl border border-white/10 shadow-lg scroll-mt-24">
-          <h2 className="text-3xl font-bold text-emerald-300 mb-6 flex items-center">
-            <span className="bg-emerald-500/20 text-emerald-300 w-10 h-10 rounded-full flex items-center justify-center mr-3 text-xl">5</span>
+        <section id="acknowledgement" className="mb-16 p-6 bg-white rounded-xl border border-gray-200 shadow-sm scroll-mt-24">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 flex items-center">
+            <span className="bg-emerald-50 text-emerald-700 w-10 h-10 rounded-full flex items-center justify-center mr-3 text-xl border border-emerald-200">5</span>
             Acknowledgement
           </h2>
-          <div className="w-full h-1 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full mb-8"></div>
+          <div className="w-full h-px bg-gray-200 rounded-full mb-8"></div>
 
-          <p className="text-white/80">By using Ments you acknowledge you have read and understood all of the above documents.</p>
+          <p className="text-gray-700">By using Ments you acknowledge you have read and understood all of the above documents.</p>
         </section>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

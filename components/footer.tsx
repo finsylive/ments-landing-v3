@@ -95,7 +95,17 @@ export default function Footer() {
             transition={{ duration: 0.8, delay: 0.5 }}
             viewport={{ once: true }}
           >
-            <h1 className="text-8xl lg:text-10xl font-regular text-white">ments</h1>
+            <a href="/" aria-label="Ments home">
+              <Image
+                src="/white_logo.svg"
+                alt="Ments logo"
+                width={600}
+                height={184}
+                priority={false}
+                className="w-64 md:w-96 lg:w-[600px] h-auto"
+                sizes="(min-width: 1024px) 600px, (min-width: 768px) 384px, 256px"
+              />
+            </a>
           </motion.div>
 
           {/* Association Section */}

@@ -2,12 +2,10 @@
 
 import { motion } from "framer-motion";
 import Analytics from "@/components/analytics";
-import Navbar from "@/components/navbar";
 import HeroSection from "@/components/hero-section";
 import FeaturesSection from "@/components/features-section";
 import HorizontalCarousel from "@/components/horizontal-carousel";
 import WhatsAppCTA from "@/components/whatsapp-cta";
-import Footer from "@/components/footer";
 import EventsCareersCTA from "@/components/events-careers-cta";
 
 export default function Page() {

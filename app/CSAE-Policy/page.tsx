@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Footer from "@/components/footer";
 import Link from "next/link";
 
 export default function CSAEPolicy() {
@@ -12,7 +11,7 @@ export default function CSAEPolicy() {
       // Show/hide scroll to top button
       setShowScrollTop(window.scrollY > 500);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -23,11 +22,12 @@ export default function CSAEPolicy() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <>
+      <div className="min-h-screen bg-white">
       {/* Scroll to top button */}
       <button 
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 z-50 p-2 rounded-full bg-emerald-500 text-white shadow-lg transition-opacity duration-300 hover:bg-emerald-600 ${showScrollTop ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed bottom-8 right-8 z-50 p-2 rounded-full bg-emerald-600 text-white shadow-md transition-opacity duration-300 hover:bg-emerald-700 ${showScrollTop ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
         aria-label="Scroll to top"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -36,14 +36,14 @@ export default function CSAEPolicy() {
       </button>
 
       <div className="pt-24 pb-16 px-4 md:px-8 max-w-6xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-serif bg-gradient-to-r from-emerald-300 to-sky-400 bg-clip-text text-transparent mb-4 text-center">
+        <h1 className="text-4xl md:text-5xl font-serif text-gray-900 mb-4 text-center">
           Ments – Child Safety Policy
         </h1>
-        <p className="text-center text-gray-400 italic mb-8">
+        <p className="text-center text-gray-500 italic mb-8">
           Last updated: May 10, 2025
         </p>
         
-        <div className="text-white/80 mb-12 p-6 bg-white/5 rounded-xl border border-white/10">
+        <div className="text-gray-700 mb-12 p-6 bg-white rounded-xl border border-gray-200">
           <p className="mb-6">
             At Ments ("the App"), we are committed to creating a safe environment for all users, with a particular focus on 
             protecting children from sexual abuse and exploitation. This policy outlines our standards, procedures, and commitment 
@@ -52,11 +52,11 @@ export default function CSAEPolicy() {
         </div>
 
         {/* Main Policy Section */}
-        <section className="mb-16 p-6 bg-white/5 rounded-xl border border-white/10 shadow-lg scroll-mt-24">
-          <h2 className="text-3xl font-bold text-emerald-300 mb-6">
+        <section className="mb-16 p-6 bg-white rounded-xl border border-gray-200 shadow-sm scroll-mt-24">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">
             Standards Against Child Sexual Abuse and Exploitation (CSAE)
           </h2>
-          <div className="w-full h-1 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full mb-8"></div>
+          <div className="w-full h-px bg-gray-200 rounded-full mb-8"></div>
           
           <div className="space-y-8">
             {[
@@ -110,28 +110,29 @@ export default function CSAEPolicy() {
               },
             ].map((item, index) => (
               <div key={index}>
-                <h3 className="text-xl font-bold mb-3 text-white bg-white/5 p-2 pl-4 rounded-md border-l-4 border-emerald-300">{item.title}</h3>
+                <h3 className="text-xl font-semibold mb-3 text-gray-900 bg-gray-50 p-2 pl-4 rounded-md border-l-4 border-emerald-500">{item.title}</h3>
                 <div className="whitespace-pre-line">
-                  <p className="text-white/80">{item.content}</p>
+                  <p className="text-gray-700">{item.content}</p>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        <div className="text-center text-white/60 mb-8">
+        <div className="text-center text-gray-600 mb-8">
           <p>
             Return to{" "}
-            <Link href="/" className="text-emerald-300 hover:text-emerald-200 underline">
+            <Link href="/" className="text-emerald-700 hover:text-emerald-600 underline">
               Home
             </Link>
             {" "}or{" "}
-            <Link href="/legal" className="text-emerald-300 hover:text-emerald-200 underline">
+            <Link href="/legal" className="text-emerald-700 hover:text-emerald-600 underline">
               Legal Documents
             </Link>
           </p>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

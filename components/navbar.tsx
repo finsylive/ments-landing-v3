@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import WaitlistDialog from "./WaitlistDialog";
+import Image from "next/image";
 
 const NAV_ITEMS = [
   { label: "Blog", href: "/blog" },
@@ -28,8 +29,15 @@ export default function Navbar() {
                       bg-black/90 backdrop-blur-md rounded-full
                       px-4 md:px-8 py-4 flex items-center justify-between">
         {/* Brand */}
-        <Link href="/" className="text-white font-bold text-xl px-4">
-          ments
+        <Link href="/" className=" flex items-center -ml- mr-4" aria-label="Ments home">
+          <Image
+            src="/white.svg" 
+            alt="Ments logo"
+            width={120}
+            height={36}
+            priority
+            className="h-7 md:h-8 w-auto"
+          />
         </Link>
 
         {/* Desktop links */}
