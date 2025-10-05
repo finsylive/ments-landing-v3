@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { JobListing } from "@/types/referral";
 import JobListingCard from "@/components/careers/JobListingCard";
-import Navbar from "@/components/navbar";
 
 export default function ReferralsPage() {
   const [jobs, setJobs] = useState<JobListing[]>([]);
@@ -52,7 +51,6 @@ export default function ReferralsPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
       
       <main className="flex-1 pt-16">
         <section className="py-16 px-4">
