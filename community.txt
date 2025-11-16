@@ -1,0 +1,140 @@
+Page Overview
+
+Page Title: Ments Community
+URL (suggested): /community
+Purpose:
+To create a central hub for founders, investors, and mentors to connect, collaborate, and grow together — blending community-driven engagement with structured access to mentorship and investor networks.
+
+This page acts as the entry point for anyone interested in joining the Ments ecosystem — whether as a founder, mentor, or investor.
+
+🏗️ Page Structure
+1. Hero Section
+
+Goal: Instantly communicate what the community is about.
+
+Elements:
+
+Headline:
+
+“Join India’s Fastest Growing Founder–Investor Community”
+
+Subheadline:
+
+“Build. Learn. Connect. Raise. — A collaborative platform where early-stage founders meet mentors and investors who believe in their vision.”
+
+Call-to-Action (CTA):
+Join the Community → (scrolls to registration form)
+
+Optional visual:
+Animated background or illustration showing founders, investors, and mentors connecting in a network graph.
+
+2. About the Community
+
+Goal: Give visitors context and build trust.
+
+Content Example:
+
+The Ments Community is designed to go beyond networking.
+We’re building a platform that evolves through collaboration — shaped by the voices of our members.
+Whether you’re an early-stage founder looking for mentorship or an investor looking for high-signal startups, Ments connects you meaningfully.
+
+Key Highlights (as icons or cards):
+
+🌱 Early-stage Founder Support
+
+🤝 Mentor–Founder Collaboration
+
+💸 Smart Investor Matching
+
+💬 Feedback-driven Product Evolution
+
+3. How It Works
+
+Goal: Explain the process simply and visually.
+
+Flow (3–4 steps):
+
+Step	Title	Description
+1️⃣	Register Your Role	Choose whether you’re a Founder, Mentor, or Investor.
+2️⃣	Get Verified	Basic review to ensure real, intent-based profiles.
+3️⃣	Connect & Collaborate	Access curated groups, events, and mentorship channels.
+4️⃣	Grow Together	Get matched with investors or startups aligned to your interests.
+
+(Include minimal icons and a timeline/arrow animation.)
+
+4. Registration Form
+
+This is the interactive core of the page.
+
+You can embed it as a Google Form / Typeform / Custom Form in React or plain HTML.
+
+Recommended Section Title:
+
+“Be Part of the Ments Movement 🚀”
+
+Below is the structured breakdown:
+
+🧩 Form Schema
+Step 1: Basic Details
+
+Full Name
+
+Email ID
+
+Role → Dropdown: Founder / Investor / Mentor
+
+Organization / Startup Name (Optional)
+
+LinkedIn URL
+
+Conditional Section Based on Role
+🧑‍💻 For Founders
+
+Startup Stage (Idea / Early Traction / Scaling / Revenue)
+
+Biggest Challenge (Team / Funding / Mentorship / Product)
+
+Preferred Support Type (Community / Platform / Both)
+
+Comfort Sharing Feedback Publicly (Scale 1–5)
+
+Preferred Connection Mode (DM / Matchmaking / Events)
+
+Type of Mentorship Needed (Founder / Industry / Technical / Business)
+
+Optional: “What feature would make this platform most valuable to you?”
+
+💼 For Investors / Mentors
+
+Focus Areas
+
+Preferred Startup Stage (Idea / MVP / Scaling / Revenue)
+
+Frequency of Startup Approaches (Rarely / Sometimes / Often)
+
+Preferred Interaction Mode (Open DMs / Filtered / Platform Only)
+
+Interest in (Mentorship / Investment / Both)
+
+Optional: “What would make this platform stand out for you?”
+
+Step 2: Final Input
+
+“If you could suggest one feature that would make this community truly different, what would it be?”
+
+Submit Button: Join Now
+
+After submission →
+✅ Show “Thank you” message + Optional “Join our WhatsApp/Discord group” CTA.
+
+5. Community Highlights Section
+
+Goal: Build social proof and show what members get.
+
+Examples:
+
+“100+ Founders from IITs, NITs & top incubators”
+
+“Monthly AMA Sessions with Investors & Founders”
+
+“Access to exclusive pitch events & mentor meetups”
