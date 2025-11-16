@@ -114,6 +114,7 @@ export function RegistrationForm() {
         </p>
         <Button
           size="lg"
+          onClick={() => window.open("https://chat.whatsapp.com/L8tFk7w8CpN1kDUIbCAr7m", "_blank")}
           className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
         >
           Join our WhatsApp Community
