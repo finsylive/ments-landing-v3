@@ -18,6 +18,7 @@ const NAV_ITEMS = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
 
   return (
     <motion.nav
@@ -51,9 +52,12 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Join Waitlist */}
+        {/* Join Waitlist - Dialog lives here so it stays mounted when mobile menu closes */}
         <div className="hidden md:block">
-          <WaitlistDialog>
+          <WaitlistDialog
+            open={waitlistOpen}
+            onOpenChange={setWaitlistOpen}
+          >
             <Button 
               variant="outline"
               className="bg-white text-black border-white hover:bg-gray-100 rounded-full px-6"
@@ -96,14 +100,15 @@ export default function Navbar() {
               </li>
             ))}
             <li>
-              <WaitlistDialog>
-                <Button 
-                  className="w-full rounded-full"
-                  onClick={() => setOpen(false)}
-                >
-                  Join Waitlist
-                </Button>
-              </WaitlistDialog>
+              <Button 
+                className="w-full rounded-full"
+                onClick={() => {
+                  setWaitlistOpen(true);
+                  setOpen(false);
+                }}
+              >
+                Join Waitlist
+              </Button>
             </li>
           </motion.ul>
         )}
