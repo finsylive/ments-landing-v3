@@ -57,10 +57,10 @@ export function AboutSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex flex-col items-center text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-purple-50 hover:shadow-lg transition-shadow"
+              className="flex flex-col items-center text-center p-6 rounded-2xl bg-white shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all"
             >
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center mb-4">
-                <item.icon className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 rounded-2xl bg-green-100 text-green-600 ring-1 ring-green-200 flex items-center justify-center mb-4">
+                <item.icon className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">
                 {item.title}

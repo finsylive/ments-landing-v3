@@ -11,11 +11,11 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <section className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-gray-50">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-blue-200/30 rounded-full blur-3xl"
+          className="absolute top-20 left-10 w-72 h-72 bg-green-200 opacity-20 rounded-full blur-3xl"
           animate={{
             x: [0, 100, 0],
             y: [0, 50, 0],
@@ -27,7 +27,7 @@ export function HeroSection() {
           }}
         />
         <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl"
+          className="absolute bottom-20 right-10 w-96 h-96 bg-blue-200 opacity-15 rounded-full blur-3xl"
           animate={{
             x: [0, -100, 0],
             y: [0, -50, 0],
@@ -49,7 +49,7 @@ export function HeroSection() {
         >
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
             Join India's Fastest Growing{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-gray-400">
               Founder–Investor Community
             </span>
           </h1>
@@ -75,7 +75,7 @@ export function HeroSection() {
           <Button
             size="lg"
             onClick={scrollToForm}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all"
+            className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all"
           >
             Join the Community
             <ArrowDown className="ml-2 h-5 w-5" />
@@ -95,14 +95,14 @@ export function HeroSection() {
 
       {/* Decorative elements */}
       <motion.div
-        className="absolute top-1/4 left-10 text-4xl font-light text-blue-300"
+        className="absolute top-1/4 left-10 text-4xl font-light text-gray-300"
         animate={{ rotate: 360 }}
         transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
       >
         ✱
       </motion.div>
       <motion.div
-        className="absolute bottom-1/4 right-10 text-3xl font-light text-purple-300"
+        className="absolute bottom-1/4 right-10 text-3xl font-light text-gray-300"
         animate={{ rotate: -360 }}
         transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
       >

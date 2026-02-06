@@ -23,7 +23,7 @@ export function CommunityHighlights() {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white">
+    <section className="py-16 md:py-24 bg-black text-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -35,7 +35,7 @@ export function CommunityHighlights() {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             Community Highlights
           </h2>
-          <p className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
             Join a thriving ecosystem of founders, mentors, and investors
           </p>
         </motion.div>
@@ -51,13 +51,13 @@ export function CommunityHighlights() {
               className="relative group"
             >
               <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 text-center hover:bg-white/20 transition-all border border-white/20 h-full">
-                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-400 to-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <item.icon className="w-8 h-8 text-white" />
                 </div>
-                <div className="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">
+                <div className="text-4xl md:text-5xl font-bold mb-3 text-white">
                   {item.stat}
                 </div>
-                <p className="text-lg text-blue-100">
+                <p className="text-lg text-gray-400">
                   {item.description}
                 </p>
               </div>
@@ -72,7 +72,7 @@ export function CommunityHighlights() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-16 text-center"
         >
-          <p className="text-xl text-blue-100">
+          <p className="text-xl text-gray-400">
             Be part of something bigger. Join the Ments community today.
           </p>
         </motion.div>

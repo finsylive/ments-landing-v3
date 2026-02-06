@@ -4,7 +4,8 @@
       "Read(//Users/ayushmansingh/code/MentsV3.3/ments-landing /app/events/**)",
       "Bash(git add:*)",
       "Read(//Users/ayushmansingh/code/MentsV3.3/**)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(npx next build)"
     ],
     "deny": [],
     "ask": []

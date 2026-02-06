@@ -115,7 +115,7 @@ export function RegistrationForm() {
         <Button
           size="lg"
           onClick={() => window.open("https://chat.whatsapp.com/L8tFk7w8CpN1kDUIbCAr7m", "_blank")}
-          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+          className="bg-green-600 hover:bg-green-700"
         >
           Join our WhatsApp Community
         </Button>
@@ -138,7 +138,7 @@ export function RegistrationForm() {
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Be Part of the Ments Movement{" "}
-            <Rocket className="inline-block w-10 h-10 text-blue-600" />
+            <Rocket className="inline-block w-10 h-10 text-green-600" />
           </h2>
           <p className="text-lg text-gray-700">
             Fill out the form below to join our community
@@ -162,7 +162,7 @@ export function RegistrationForm() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
           onSubmit={handleSubmit}
-          className="space-y-6 bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-2xl shadow-lg"
+          className="space-y-6 bg-white p-8 rounded-2xl shadow-lg ring-1 ring-neutral-200"
         >
           {/* Basic Details */}
           <div className="space-y-6">
@@ -511,7 +511,7 @@ export function RegistrationForm() {
                 type="submit"
                 size="lg"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-green-600 hover:bg-green-700 text-white py-6 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>

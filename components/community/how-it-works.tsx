@@ -32,7 +32,7 @@ export function HowItWorks() {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <section className="py-16 md:py-24 bg-gray-100">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -51,7 +51,7 @@ export function HowItWorks() {
 
         <div className="relative">
           {/* Connection line */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-blue-300 via-purple-300 to-blue-300 transform -translate-y-1/2 z-0" />
+          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gray-300 transform -translate-y-1/2 z-0" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
             {steps.map((step, index) => (
@@ -65,13 +65,13 @@ export function HowItWorks() {
               >
                 <div className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all h-full flex flex-col items-center text-center">
                   {/* Step number badge */}
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-black flex items-center justify-center text-white font-bold text-xl shadow-lg">
                     {step.number}
                   </div>
 
                   {/* Icon */}
-                  <div className="mt-8 mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
-                    <step.icon className="w-8 h-8 text-blue-600" />
+                  <div className="mt-8 mb-4 w-16 h-16 rounded-2xl bg-green-100 text-green-600 ring-1 ring-green-200 flex items-center justify-center">
+                    <step.icon className="w-8 h-8" />
                   </div>
 
                   {/* Content */}
