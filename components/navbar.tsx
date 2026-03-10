@@ -50,16 +50,16 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Join Waitlist */}
+        {/* Sign In */}
         <div className="hidden md:block">
-          <Link href="/waitlist">
+          <a href="https://www.ments.app" target="_blank" rel="noopener noreferrer">
             <Button
               variant="outline"
               className="bg-white text-black border-white hover:bg-gray-100 rounded-full px-6"
             >
-              Join Waitlist
+              Sign In
             </Button>
-          </Link>
+          </a>
         </div>
 
         {/* Mobile hamburger */}
@@ -95,11 +95,11 @@ export default function Navbar() {
               </li>
             ))}
             <li>
-              <Link href="/waitlist" onClick={() => setOpen(false)}>
+              <a href="https://www.ments.app" target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
                 <Button className="w-full rounded-full">
-                  Join Waitlist
+                  Sign In
                 </Button>
-              </Link>
+              </a>
             </li>
           </motion.ul>
         )}

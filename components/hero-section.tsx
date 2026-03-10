@@ -53,14 +53,16 @@ export default function HeroSection() {
                   <p className="text-gray-400 text-xs mt-1 leading-relaxed">
                     Get early access to Ments. Join the waitlist for updates.
                   </p>
-                  <Link
-                    href="/waitlist"
+                  <a
+                    href="https://www.ments.app"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-xs font-medium text-white mt-2.5 hover:text-gray-300 transition-colors"
                     onClick={dismissPopup}
                   >
-                    Join Waitlist
+                    Sign In
                     <ChevronRight className="w-3 h-3" />
-                  </Link>
+                  </a>
                 </div>
               </div>
             </div>
@@ -158,13 +160,15 @@ export default function HeroSection() {
                 Beta is live
               </span>
 
-              <Link
-                href="/waitlist"
+              <a
+                href="https://www.ments.app"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-full bg-black text-white px-4 py-1.5 text-xs sm:text-sm font-medium hover:bg-black/80 transition-colors"
               >
-                Join Waitlist
+                Sign In
                 <ChevronRight className="w-3.5 h-3.5" />
-              </Link>
+              </a>
 
               <a
                 href="https://chat.whatsapp.com/FrOV4Ir4xpmBuV0v70QCIO"
