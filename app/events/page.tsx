@@ -4,7 +4,20 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import { Info, Download, CalendarDays, MapPin, Clock } from 'lucide-react';
+import { Info, Download, CalendarDays, MapPin, Clock, History } from 'lucide-react';
+
+const pastEvents = [
+  {
+    title: 'Pitch & Dev Summit',
+    description:
+      'A high-energy day of startup pitches, hands-on dev sessions, and real networking.',
+    date: new Date(2025, 8, 20),
+    duration: '2 hours',
+    format: 'Virtual',
+    location: 'Online',
+    poster: '/postersept.jpeg',
+  },
+];
 
 export default function EventsPage() {
   const [event, setEvent] = useState<any>(null);
@@ -19,6 +32,7 @@ export default function EventsPage() {
       const { data, error } = await supabase
         .from('events')
         .select('*')
+        .gte('date', new Date().toISOString().split('T')[0])
         .order('date', { ascending: true })
         .limit(1);
 
@@ -33,9 +47,8 @@ export default function EventsPage() {
     fetchEvent();
   }, []);
 
-  // If Supabase has no data, use sensible fallbacks
-  const computedDate = event?.date ? new Date(event.date) : new Date(2025, 8, 20); // 20 September 2025
-  const computedDuration = event?.duration || '2 hours';
+  const computedDate = event?.date ? new Date(event.date) : new Date(2026, 2, 13); // 13 March 2026
+  const computedDuration = event?.duration || '1.5 hours';
   const computedFormat = event?.mode || 'Virtual';
   const computedLocation = event?.location || 'Online';
 
@@ -88,10 +101,10 @@ export default function EventsPage() {
             <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-primary/20 via-fuchsia-300/20 to-emerald-300/20 blur-xl opacity-70 group-hover:opacity-100 transition" />
             <div className="relative overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/5">
               <Image
-                src="/postersept.jpeg"
-                alt={event?.title || 'Event poster'}
-                width={700}       // keep natural width
-                height={1000}     // taller portrait
+                src={event?.poster || '/placeholder.jpg'}
+                alt={event?.title || 'Women in Entrepreneurship'}
+                width={700}
+                height={1000}
                 priority
                 className="w-full max-w-sm md:max-w-md h-auto object-contain"
               />
@@ -109,11 +122,11 @@ export default function EventsPage() {
                 ) : (
                   <>
                     <h2 className="text-3xl font-bold text-primary">
-                      {event?.title || 'Pitch & Dev Summit'}
+                      {event?.title || 'Women in Entrepreneurship'}
                     </h2>
                     <p className="mt-3 text-gray-600">
                       {event?.description ||
-                        'Join us for a high-energy day of startup pitches, hands-on dev sessions, and real networking.'}
+                        'Celebrate the power of women-led ventures! Join an inspiring virtual session featuring trailblazing women entrepreneurs sharing their journeys, challenges, and strategies for building impactful businesses.'}
                     </p>
 
                     <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -179,21 +192,45 @@ export default function EventsPage() {
           </div>
         </div>
 
-        {/* Teaser grid – keep this */}
+        {/* Past Events */}
         <section className="mt-16">
-          <div className="mb-4 flex items-center justify-between">
-            <h3 className="text-xl font-semibold">More events are coming soon</h3>
-            <div className="text-sm text-gray-500">Stay tuned ✨</div>
+          <div className="mb-6 flex items-center gap-2">
+            <History className="h-5 w-5 text-gray-500" />
+            <h3 className="text-xl font-semibold">Past Events</h3>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 3 }).map((_, i) => (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {pastEvents.map((pe, i) => (
               <div
                 key={i}
-                className="rounded-2xl border bg-white/70 p-5 shadow-sm backdrop-blur ring-1 ring-gray-100"
+                className="group relative rounded-2xl border bg-white/70 p-5 shadow-sm backdrop-blur ring-1 ring-gray-100 transition hover:shadow-md"
               >
-                <div className="mb-3 h-36 w-full rounded-xl bg-gray-100" />
-                <div className="h-4 w-3/4 rounded bg-gray-200" />
-                <div className="mt-2 h-3 w-1/2 rounded bg-gray-100" />
+                <div className="relative mb-4 overflow-hidden rounded-xl">
+                  <Image
+                    src={pe.poster}
+                    alt={pe.title}
+                    width={400}
+                    height={240}
+                    className="h-44 w-full object-cover"
+                  />
+                  <span className="absolute top-2 right-2 rounded-full bg-gray-800/80 px-3 py-0.5 text-xs font-medium text-white">
+                    Completed
+                  </span>
+                </div>
+                <h4 className="text-lg font-bold">{pe.title}</h4>
+                <p className="mt-1 text-sm text-gray-600 line-clamp-2">{pe.description}</p>
+                <div className="mt-3 flex flex-wrap gap-2 text-xs text-gray-500">
+                  <span className="inline-flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1">
+                    <CalendarDays className="h-3 w-3" />
+                    {pe.date.toLocaleDateString(undefined, { dateStyle: 'long' })}
+                  </span>
+                  <span className="inline-flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1">
+                    <MapPin className="h-3 w-3" />
+                    {pe.location}
+                  </span>
+                  <span className="inline-flex items-center gap-1 rounded-md bg-gray-100 px-2 py-1">
+                    {pe.format}
+                  </span>
+                </div>
               </div>
             ))}
           </div>
