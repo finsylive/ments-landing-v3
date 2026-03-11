@@ -155,7 +155,7 @@ export default function EventsPage() {
             <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-primary/20 via-fuchsia-300/20 to-emerald-300/20 blur-xl opacity-70 group-hover:opacity-100 transition" />
             <div className="relative overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/5">
               <Image
-                src={event?.poster || '/placeholder.jpg'}
+                src={event?.poster || '/womanevent.png'}
                 alt={event?.title || 'Women in Entrepreneurship'}
                 width={700}
                 height={1000}

@@ -2,9 +2,10 @@
 
 import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
-import { CheckCircle2, Loader2, ArrowLeft } from 'lucide-react';
+import { useAuth } from '@/contexts/auth-context';
+import { CheckCircle2, Loader2, ArrowLeft, User } from 'lucide-react';
 
 const designationOptions = [
   'Student',
@@ -16,41 +17,17 @@ const designationOptions = [
   'Other',
 ];
 
-const genderOptions = ['Male', 'Female', 'Non-binary', 'Prefer not to say'];
-
-type FormData = {
-  name: string;
-  email: string;
-  phone: string;
-  gender: string;
-  organization: string;
-  designation: string;
-  other_designation: string;
-  linkedin: string;
-  city: string;
-};
-
-const initialForm: FormData = {
-  name: '',
-  email: '',
-  phone: '',
-  gender: '',
-  organization: '',
-  designation: '',
-  other_designation: '',
-  linkedin: '',
-  city: '',
-};
-
 export default function RegistrationPage() {
   return (
-    <Suspense fallback={
-      <section className="relative w-full min-h-screen bg-gray-50 pt-24 pb-12">
-        <div className="container mx-auto max-w-2xl px-4 sm:px-6 flex justify-center pt-20">
-          <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
-        </div>
-      </section>
-    }>
+    <Suspense
+      fallback={
+        <section className="relative w-full min-h-screen bg-gray-50 pt-24 pb-12">
+          <div className="container mx-auto max-w-2xl px-4 sm:px-6 flex justify-center pt-20">
+            <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
+          </div>
+        </section>
+      }
+    >
       <RegistrationContent />
     </Suspense>
   );
@@ -58,13 +35,28 @@ export default function RegistrationPage() {
 
 function RegistrationContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const refToken = searchParams.get('ref');
-  const [form, setForm] = useState<FormData>(initialForm);
+  const { user, loading: authLoading } = useAuth();
+
+  const [phone, setPhone] = useState('');
+  const [designation, setDesignation] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [eventId, setEventId] = useState<string | null>(null);
   const [referrerName, setReferrerName] = useState<string | null>(null);
+
+  const userName = user?.user_metadata?.full_name || user?.user_metadata?.name || '';
+  const userEmail = user?.email || '';
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!authLoading && !user) {
+      const ref = refToken ? `?ref=${refToken}` : '';
+      router.push(`/login?redirect=/events/registration${ref}`);
+    }
+  }, [authLoading, user, router, refToken]);
 
   useEffect(() => {
     const fetchCurrentEvent = async () => {
@@ -90,32 +82,19 @@ function RegistrationContent() {
     }
   }, [refToken]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!userName || !userEmail) return;
     setSubmitting(true);
     setError(null);
 
     const payload: Record<string, string | null> = {
-      name: form.name.trim(),
-      email: form.email.trim(),
-      phone: form.phone.trim(),
-      gender: form.gender,
-      organization: form.organization.trim(),
-      designation: form.designation,
-      linkedin: form.linkedin.trim(),
-      city: form.city.trim(),
+      name: userName,
+      email: userEmail,
+      phone: phone.trim(),
+      designation,
       Event_id: eventId,
     };
-
-    if (form.designation === 'Other') {
-      payload.other_designation = form.other_designation.trim();
-    }
 
     if (refToken) {
       payload.referral_token = refToken;
@@ -140,10 +119,19 @@ function RegistrationContent() {
         supabase.rpc('increment_referral_count', { p_token: refToken }).then(() => {});
       }
       setSuccess(true);
-      setForm(initialForm);
     }
     setSubmitting(false);
   };
+
+  if (authLoading) {
+    return (
+      <section className="relative w-full min-h-screen bg-gray-50 pt-24 pb-12">
+        <div className="container mx-auto max-w-2xl px-4 sm:px-6 flex justify-center pt-20">
+          <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
+        </div>
+      </section>
+    );
+  }
 
   if (success) {
     return (
@@ -171,13 +159,13 @@ function RegistrationContent() {
 
   return (
     <section className="relative w-full min-h-screen bg-gray-50 pt-24 pb-12">
-      <div className="container mx-auto max-w-2xl px-4 sm:px-6">
+      <div className="container mx-auto max-w-lg px-4 sm:px-6">
         <header className="text-center mb-8">
           <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">
             Event Registration
           </h1>
           <p className="text-muted-foreground mt-2">
-            Fill in the form below to secure your spot.
+            Just a couple more details to secure your spot.
           </p>
         </header>
 
@@ -189,92 +177,57 @@ function RegistrationContent() {
           </div>
         )}
 
+        {/* Auto-filled user info from Google login */}
+        <div className="mb-5 rounded-xl bg-gray-50 border p-4 flex items-center gap-3">
+          {user?.user_metadata?.avatar_url ? (
+            <img
+              src={user.user_metadata.avatar_url}
+              alt=""
+              className="w-10 h-10 rounded-full"
+            />
+          ) : (
+            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+              <User className="h-5 w-5 text-gray-500" />
+            </div>
+          )}
+          <div className="min-w-0">
+            <p className="font-semibold text-gray-900 truncate">{userName}</p>
+            <p className="text-sm text-gray-500 truncate">{userEmail}</p>
+          </div>
+        </div>
+
         <form
           onSubmit={handleSubmit}
           className="space-y-5 rounded-2xl border bg-white p-6 sm:p-8 shadow-lg"
         >
-          {/* Name */}
-          <Field label="Full Name" required>
-            <input
-              type="text"
-              name="name"
-              required
-              value={form.name}
-              onChange={handleChange}
-              placeholder="Jane Doe"
-              className="input-style"
-            />
-          </Field>
-
-          {/* Email */}
-          <Field label="Email" required>
-            <input
-              type="email"
-              name="email"
-              required
-              value={form.email}
-              onChange={handleChange}
-              placeholder="jane@example.com"
-              className="input-style"
-            />
-          </Field>
-
           {/* Phone */}
-          <Field label="Phone Number" required>
+          <label className="block">
+            <span className="mb-1.5 block text-sm font-medium text-gray-700">
+              Phone Number <span className="text-red-500 ml-0.5">*</span>
+            </span>
             <input
               type="tel"
-              name="phone"
               required
-              value={form.phone}
-              onChange={handleChange}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
               placeholder="+91 98765 43210"
               className="input-style"
             />
-          </Field>
-
-          {/* Gender */}
-          <Field label="Gender" required>
-            <select
-              name="gender"
-              required
-              value={form.gender}
-              onChange={handleChange}
-              className="input-style"
-            >
-              <option value="" disabled>
-                Select gender
-              </option>
-              {genderOptions.map((g) => (
-                <option key={g} value={g}>
-                  {g}
-                </option>
-              ))}
-            </select>
-          </Field>
-
-          {/* Organization */}
-          <Field label="Organization / College">
-            <input
-              type="text"
-              name="organization"
-              value={form.organization}
-              onChange={handleChange}
-              placeholder="Acme Inc. / XYZ University"
-              className="input-style"
-            />
-          </Field>
+          </label>
 
           {/* Designation */}
-          <Field label="Designation" required>
+          <label className="block">
+            <span className="mb-1.5 block text-sm font-medium text-gray-700">
+              I am a <span className="text-red-500 ml-0.5">*</span>
+            </span>
             <select
-              name="designation"
               required
-              value={form.designation}
-              onChange={handleChange}
+              value={designation}
+              onChange={(e) => setDesignation(e.target.value)}
               className="input-style"
             >
               <option value="" disabled>
-                Select designation
+                Select your role
               </option>
               {designationOptions.map((d) => (
                 <option key={d} value={d}>
@@ -282,46 +235,7 @@ function RegistrationContent() {
                 </option>
               ))}
             </select>
-          </Field>
-
-          {form.designation === 'Other' && (
-            <Field label="Please specify" required>
-              <input
-                type="text"
-                name="other_designation"
-                required
-                value={form.other_designation}
-                onChange={handleChange}
-                placeholder="Your role"
-                className="input-style"
-              />
-            </Field>
-          )}
-
-          {/* LinkedIn */}
-          <Field label="LinkedIn Profile">
-            <input
-              type="url"
-              name="linkedin"
-              value={form.linkedin}
-              onChange={handleChange}
-              placeholder="https://linkedin.com/in/janedoe"
-              className="input-style"
-            />
-          </Field>
-
-          {/* City */}
-          <Field label="City" required>
-            <input
-              type="text"
-              name="city"
-              required
-              value={form.city}
-              onChange={handleChange}
-              placeholder="Mumbai"
-              className="input-style"
-            />
-          </Field>
+          </label>
 
           {error && (
             <p className="rounded-lg bg-red-50 px-4 py-2 text-sm text-red-600">
@@ -335,7 +249,7 @@ function RegistrationContent() {
             className="w-full rounded-xl bg-primary px-6 py-3 font-semibold text-primary-foreground shadow hover:bg-primary/90 disabled:opacity-60 flex items-center justify-center gap-2"
           >
             {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
-            {submitting ? 'Submitting…' : 'Register'}
+            {submitting ? 'Registering…' : 'Register'}
           </button>
         </form>
 
@@ -345,7 +259,6 @@ function RegistrationContent() {
         </p>
       </div>
 
-      {/* scoped utility class */}
       <style jsx global>{`
         .input-style {
           width: 100%;
@@ -363,25 +276,5 @@ function RegistrationContent() {
         }
       `}</style>
     </section>
-  );
-}
-
-function Field({
-  label,
-  required,
-  children,
-}: {
-  label: string;
-  required?: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <label className="block">
-      <span className="mb-1.5 block text-sm font-medium text-gray-700">
-        {label}
-        {required && <span className="text-red-500 ml-0.5">*</span>}
-      </span>
-      {children}
-    </label>
   );
 }

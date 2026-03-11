@@ -6,11 +6,13 @@ import HeroSection from "@/components/hero-section";
 import FeaturesSection from "@/components/features-section";
 import HorizontalCarousel from "@/components/horizontal-carousel";
 import WhatsAppCTA from "@/components/whatsapp-cta";
+import EventPopup from "@/components/event-popup";
 
 export default function Page() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden">
       <Analytics />
+      <EventPopup />
 
       {/* Animated background stars */}
       <motion.div
