@@ -4,7 +4,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
-import { Info, Download, CalendarDays, MapPin, Clock, History } from 'lucide-react';
+import { Info, Download, CalendarDays, MapPin, Clock, History, Share2, Copy, Check, Loader2, X } from 'lucide-react';
+import { useAuth } from '@/contexts/auth-context';
+import { useRouter } from 'next/navigation';
 
 const pastEvents = [
   {
@@ -24,6 +26,12 @@ export default function EventsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [openInfo, setOpenInfo] = useState(false);
+  const [referralOpen, setReferralOpen] = useState(false);
+  const [referralData, setReferralData] = useState<any>(null);
+  const [referralLoading, setReferralLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const { user } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -70,6 +78,52 @@ export default function EventsPage() {
     let res = text;
     for (const re of patterns) res = res.replace(re, label);
     return res;
+  };
+
+  const handleRefer = async () => {
+    if (!user) {
+      router.push('/login?redirect=/events');
+      return;
+    }
+    if (!event?.id) return;
+
+    setReferralOpen(true);
+    setReferralLoading(true);
+    setCopied(false);
+
+    try {
+      const res = await fetch(`/api/referral?event_id=${event.id}`);
+      const json = await res.json();
+      if (res.ok && json.referral) {
+        setReferralData(json.referral);
+      }
+    } catch {
+      // silently fail — dialog will show empty state
+    } finally {
+      setReferralLoading(false);
+    }
+  };
+
+  const referralUrl = referralData?.token
+    ? `${typeof window !== 'undefined' ? window.location.origin : ''}/events/registration?ref=${referralData.token}`
+    : '';
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(referralUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = referralUrl;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   return (
@@ -163,6 +217,18 @@ export default function EventsPage() {
                 </Link>
 
                 <button
+                  onClick={handleRefer}
+                  className="w-full rounded-xl border border-emerald-200 bg-emerald-50 px-6 py-3 font-semibold text-emerald-700 hover:bg-emerald-100 transition-colors"
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <Share2 className="h-5 w-5" />
+                    Refer a Friend
+                  </span>
+                </button>
+              </div>
+
+              <div className="mt-3 flex gap-3 sm:flex-row flex-col">
+                <button
                   onClick={() => setOpenInfo(true)}
                   className="w-full rounded-xl border px-6 py-3 font-semibold text-gray-800 hover:bg-gray-50"
                 >
@@ -173,7 +239,7 @@ export default function EventsPage() {
                 </button>
 
                 <a
-                  href="Ments (7).pdf" // replace with GDrive link
+                  href="Women in Entrepreneurship.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full rounded-xl border px-6 py-3 font-semibold text-gray-800 hover:bg-gray-50"
@@ -236,6 +302,103 @@ export default function EventsPage() {
           </div>
         </section>
       </div>
+
+      {/* REFERRAL DIALOG */}
+      {referralOpen && (
+        <div
+          className="fixed inset-0 z-50 grid place-items-center bg-black/50 px-4"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setReferralOpen(false)}
+        >
+          <div
+            className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <Share2 className="h-5 w-5 text-emerald-600" />
+                <h4 className="text-xl font-bold text-gray-900">Refer a Friend</h4>
+              </div>
+              <button
+                onClick={() => setReferralOpen(false)}
+                className="rounded-md p-1.5 hover:bg-gray-100 transition-colors"
+                aria-label="Close"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            {referralLoading ? (
+              <div className="flex flex-col items-center justify-center py-10 gap-3">
+                <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
+                <p className="text-sm text-gray-500">Generating your referral link...</p>
+              </div>
+            ) : referralData ? (
+              <div className="space-y-5">
+                <div className="rounded-xl bg-gray-50 border p-4 space-y-2">
+                  <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">Your Details</div>
+                  <div className="flex items-center gap-3">
+                    {user?.user_metadata?.avatar_url && (
+                      <img
+                        src={user.user_metadata.avatar_url}
+                        alt=""
+                        className="w-10 h-10 rounded-full"
+                      />
+                    )}
+                    <div>
+                      <p className="font-semibold text-gray-900">{referralData.referrer_name}</p>
+                      <p className="text-sm text-gray-500">{referralData.referrer_email}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">Your Referral Link</div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      readOnly
+                      value={referralUrl}
+                      className="flex-1 rounded-lg border bg-gray-50 px-3 py-2.5 text-sm text-gray-700 outline-none select-all"
+                      onClick={(e) => (e.target as HTMLInputElement).select()}
+                    />
+                    <button
+                      onClick={copyToClipboard}
+                      className={`shrink-0 rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
+                        copied
+                          ? 'bg-emerald-100 text-emerald-700'
+                          : 'bg-primary text-primary-foreground hover:bg-primary/90'
+                      }`}
+                    >
+                      {copied ? (
+                        <span className="inline-flex items-center gap-1.5"><Check className="h-4 w-4" /> Copied</span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1.5"><Copy className="h-4 w-4" /> Copy</span>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-emerald-700 font-medium">Registrations via your link</span>
+                    <span className="text-2xl font-bold text-emerald-700">{referralData.referral_count}</span>
+                  </div>
+                </div>
+
+                <p className="text-xs text-gray-400 text-center">
+                  Share this link with friends. Each registration through your link will be tracked.
+                </p>
+              </div>
+            ) : (
+              <p className="py-8 text-center text-gray-500">
+                Could not generate referral link. Please try again.
+              </p>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* INFO MODAL */}
       {openInfo && (event || true) && (

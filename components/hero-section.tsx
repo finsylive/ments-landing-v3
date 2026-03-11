@@ -60,7 +60,7 @@ export default function HeroSection() {
                     className="inline-flex items-center gap-1 text-xs font-medium text-white mt-2.5 hover:text-gray-300 transition-colors"
                     onClick={dismissPopup}
                   >
-                    Sign In
+                    Join Beta
                     <ChevronRight className="w-3 h-3" />
                   </a>
                 </div>
@@ -166,7 +166,7 @@ export default function HeroSection() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-full bg-black text-white px-4 py-1.5 text-xs sm:text-sm font-medium hover:bg-black/80 transition-colors"
               >
-                Sign In
+                Join Beta
                 <ChevronRight className="w-3.5 h-3.5" />
               </a>
 

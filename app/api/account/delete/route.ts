@@ -1,92 +1,103 @@
-import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabaseClient';
+import { createClient } from "@/lib/supabase/server";
+import {
+  rateLimit,
+  rateLimitHeaders,
+  createRateLimitResponse,
+  getClientIp,
+} from "@/lib/security/rate-limit";
 
-// Helper function to send JSON responses
-function jsonResponse(status: number, data: any) {
+function json(status: number, data: unknown) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { "Content-Type": "application/json" },
   });
 }
 
 export async function POST(request: Request) {
+  // Per-route rate limit (defense-in-depth alongside middleware)
+  const ip = getClientIp(request);
+  const rl = rateLimit(ip, {
+    limit: parseInt(process.env.RATE_LIMIT_SENSITIVE_MAX || "5", 10),
+    windowSeconds: parseInt(
+      process.env.RATE_LIMIT_SENSITIVE_WINDOW_SECONDS || "3600",
+      10
+    ),
+    namespace: "account-delete",
+  });
+  if (!rl.success) return createRateLimitResponse(rl);
+
   try {
-    const { username, email, reason, feedback } = await request.json();
+    const supabase = await createClient();
 
-    // Basic validation
-    if (!email || !username) {
-      return jsonResponse(400, {
-        error: 'Validation failed',
-        details: 'Email and username are required'
-      });
+    // Require authentication — middleware already guards this, but defense-in-depth
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      return json(401, { error: "Unauthorized" });
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return jsonResponse(400, {
-        error: 'Validation failed',
-        details: 'Please enter a valid email address'
-      });
+    const body = await request.json();
+    const { reason, feedback } = body;
+
+    const email = user.email;
+    const username =
+      user.user_metadata?.full_name ||
+      user.user_metadata?.name ||
+      email?.split("@")[0] ||
+      "";
+
+    if (!email) {
+      return json(400, { error: "No email associated with your account." });
     }
 
-    // Call the database function to handle the deletion request
-    const { data, error } = await supabase.rpc('handle_account_deletion_request', {
-      p_username: username,
-      p_email: email,
-      p_reason: reason,
-      p_feedback: feedback || ''
-    });
+    const { data, error } = await supabase.rpc(
+      "handle_account_deletion_request",
+      {
+        p_username: username,
+        p_email: email,
+        p_reason: reason || "",
+        p_feedback: feedback || "",
+      }
+    );
 
     if (error) {
-      console.error('Error processing deletion request:', error);
-      throw new Error('Failed to process deletion request');
+      console.error("Account deletion RPC error:", error.message);
+      return json(500, {
+        error: "Failed to process deletion request. Please try again later.",
+      });
     }
 
-    // Check if this was a duplicate request
     if (data?.is_duplicate) {
-      return jsonResponse(200, {
+      return json(200, {
         success: true,
         isDuplicate: true,
-        message: data.message || 'A deletion request is already being processed for this email.'
+        message:
+          "A deletion request is already being processed for this account.",
       });
     }
 
-    return jsonResponse(200, {
-      success: true,
-      message: 'Your account deletion request has been received and is being processed.',
-      data: newRequest
-    });
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+      ...rateLimitHeaders(rl),
+    };
 
-  } catch (error) {
-    console.error('Error processing deletion request:', error);
-    
-    // Handle different types of errors
-    if (error instanceof Error) {
-      return jsonResponse(500, {
-        error: 'Internal Server Error',
-        details: error.message,
-        name: error.name
-      });
-    }
-    
-    return jsonResponse(500, {
-      error: 'Internal Server Error',
-      details: 'An unexpected error occurred while processing your request.'
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message:
+          "Your account deletion request has been received and is being processed.",
+      }),
+      { status: 200, headers }
+    );
+  } catch (err) {
+    console.error("Account deletion error:", err);
+    return json(500, {
+      error: "An unexpected error occurred. Please try again later.",
     });
   }
 }
 
 export async function GET() {
-  return new Response(
-    JSON.stringify({ error: 'Method not allowed' }),
-    {
-      status: 405,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  );
+  return json(405, { error: "Method not allowed" });
 }
