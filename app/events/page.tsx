@@ -251,6 +251,18 @@ export default function EventsPage() {
                 </a>
               </div>
 
+              <div className="mt-3">
+                <a
+                  href="https://calendar.google.com/calendar/event?action=TEMPLATE&tmeid=Nm1xbmdybTg1b3I3anQxM2V1OWQ0MjUzZDEgYXl1c2htYW5AbWVudHMuYXBw&tmsrc=ayushman%40ments.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-blue-200 bg-blue-50 px-6 py-3 font-semibold text-blue-700 hover:bg-blue-100 transition-colors"
+                >
+                  <CalendarDays className="h-5 w-5" />
+                  Add to Google Calendar
+                </a>
+              </div>
+
               <p className="mt-4 text-center text-sm text-gray-500">
                 More events & meetups are on the way. Watch this space.
               </p>
