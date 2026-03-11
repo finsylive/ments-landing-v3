@@ -222,18 +222,12 @@ export default function EventsPage() {
                 >
                   <span className="inline-flex items-center gap-2">
                     <Share2 className="h-5 w-5" />
-                    Refer a Friend
+                    Refer & Win!
+                  </span>
+                  <span className="block text-xs font-normal text-emerald-600 mt-1">
+                    Top 3 referrers win prizes worth up to Rs. 2,000!
                   </span>
                 </button>
-              </div>
-
-              <div className="mt-4 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 px-4 py-3">
-                <p className="text-sm font-semibold text-amber-800">
-                  Refer & Win!
-                </p>
-                <p className="text-xs text-amber-700 mt-1">
-                  Top 3 referrers win prizes worth up to Rs. 2,000 — T-shirts, tote bags, goodies & more!
-                </p>
               </div>
 
               <div className="mt-3 flex gap-3 sm:flex-row flex-col">
