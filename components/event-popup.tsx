@@ -39,12 +39,19 @@ export default function EventPopup() {
         if (data && data.length > 0) {
           setEvent(data[0]);
         } else {
-          // Fallback: show a generic event prompt
-          setEvent({ title: "Check Out Our Upcoming Events!" });
+          // Fallback: hardcoded upcoming event details
+          setEvent({
+            title: "Women in Entrepreneurship",
+            date: "2026-03-13",
+            venue: "Online",
+          });
         }
-      } catch (err) {
-        // Even if fetch fails, show a generic prompt
-        setEvent({ title: "Check Out Our Upcoming Events!" });
+      } catch {
+        setEvent({
+          title: "Women in Entrepreneurship",
+          date: "2026-03-13",
+          venue: "Online",
+        });
       }
       setTimeout(() => setVisible(true), 1500);
     };
