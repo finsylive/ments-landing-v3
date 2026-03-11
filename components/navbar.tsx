@@ -9,6 +9,7 @@ import Image from "next/image";
 import { useAuth } from "@/contexts/auth-context";
 
 const NAV_ITEMS = [
+  { label: "Home", href: "/" },
   { label: "Events", href: "/events" },
   { label: "Careers", href: "/careers" },
   { label: "About Us", href: "/about" },

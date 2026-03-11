@@ -7,9 +7,8 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabaseClient";
 
 interface UpcomingEvent {
-  id: string;
   title: string;
-  date: string;
+  date?: string;
   venue?: string;
 }
 
@@ -19,23 +18,35 @@ export default function EventPopup() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (sessionStorage.getItem("event-popup-dismissed")) {
+    if (typeof window !== "undefined" && sessionStorage.getItem("event-popup-dismissed")) {
       setDismissed(true);
       return;
     }
 
     const fetchEvent = async () => {
-      const { data } = await supabase
-        .from("events")
-        .select("id, title, date, venue")
-        .gte("date", new Date().toISOString().split("T")[0])
-        .order("date", { ascending: true })
-        .limit(1);
+      try {
+        const { data, error } = await supabase
+          .from("events")
+          .select("id, title, date, venue")
+          .gte("date", new Date().toISOString().split("T")[0])
+          .order("date", { ascending: true })
+          .limit(1);
 
-      if (data && data.length > 0) {
-        setEvent(data[0]);
-        setTimeout(() => setVisible(true), 1500);
+        if (error) {
+          console.warn("EventPopup: Supabase query error", error.message);
+        }
+
+        if (data && data.length > 0) {
+          setEvent(data[0]);
+        } else {
+          // Fallback: show a generic event prompt
+          setEvent({ title: "Check Out Our Upcoming Events!" });
+        }
+      } catch (err) {
+        // Even if fetch fails, show a generic prompt
+        setEvent({ title: "Check Out Our Upcoming Events!" });
       }
+      setTimeout(() => setVisible(true), 1500);
     };
 
     fetchEvent();
@@ -49,11 +60,13 @@ export default function EventPopup() {
 
   if (dismissed || !event) return null;
 
-  const formattedDate = new Date(event.date).toLocaleDateString("en-IN", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  });
+  const formattedDate = event.date
+    ? new Date(event.date).toLocaleDateString("en-IN", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+      })
+    : null;
 
   return (
     <AnimatePresence>
@@ -84,13 +97,15 @@ export default function EventPopup() {
               <h3 className="font-bold text-gray-900 text-lg leading-tight">
                 {event.title}
               </h3>
-              <p className="text-sm text-gray-500 mt-1">
-                {formattedDate}
-                {event.venue && ` · ${event.venue}`}
-              </p>
+              {(formattedDate || event.venue) && (
+                <p className="text-sm text-gray-500 mt-1">
+                  {formattedDate}
+                  {event.venue && ` · ${event.venue}`}
+                </p>
+              )}
 
               <Link
-                href="/events/registration"
+                href="/events"
                 onClick={handleDismiss}
                 className="mt-4 inline-flex items-center gap-2 bg-primary text-primary-foreground
                            px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-primary/90
