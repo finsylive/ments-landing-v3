@@ -76,7 +76,7 @@ export default function EventPopup() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="fixed bottom-6 right-6 z-50 max-w-sm w-full sm:w-auto"
+          className="fixed bottom-6 left-6 z-50 max-w-sm w-full sm:w-auto"
         >
           <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
             <div className="bg-gradient-to-r from-primary to-primary/80 px-5 py-3 flex items-center justify-between">
