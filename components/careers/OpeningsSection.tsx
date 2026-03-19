@@ -1,34 +1,26 @@
 function OpeningsSection() {
   const openings = [
     {
+      title: "Video Editor",
+      type: "Part-time / Internship (Unpaid, with perks)",
+      location: "Remote",
+      description: "Edit videos for our content creators, gain real-world startup experience, and build your portfolio.",
+      applyLink: "https://docs.google.com/forms/d/e/1FAIpQLSdJ66Pe7nLQDo0QsYLBMCYsUXy5j2n7C4HNb099HHLk9PMB-A/viewform?usp=header",
+    },
+    {
       title: "Content Creator",
       type: "Part-time / Internship",
       location: "Remote",
       description: "Create engaging content for our blog, social media, and other channels.",
-      applyLink: "https://forms.gle/RgiuThLHnKdT4cii9", 
+      applyLink: "https://forms.gle/RgiuThLHnKdT4cii9",
     },
     {
-      title: "Brand & UI Designer",
-      type: "Full-time / Part-time",
-      location: "Remote / Hybrid",
-      description: "Design brand assets and user interfaces to elevate our platform's visual identity.",
-      applyLink: "https://docs.google.com/forms/d/e/1FAIpQLSebFCw9IgDFe8F7kuJfKiPvphqT7o4YQEGuNzya633FOvlg2A/viewform?usp=header",
-    },
-    {
-      title: "Motion Graphic Designer",
-      type: "Part-time / Internship",
+      title: "Business Development Intern",
+      type: "Internship",
       location: "Remote",
-      description: "Create engaging motion graphics and animations, telling stories for our digital platforms.",
-      applyLink: "https://docs.google.com/forms/d/e/1FAIpQLSe0zOqnyhoBNahRe7VjsWKel3pu8X5fvt9qqURuVgqeAsp94w/viewform?usp=header",
+      description: "Drive partnerships, outreach, and growth strategies to expand Ments' reach and impact.",
+      applyLink: "https://forms.gle/n7gdS7bmZ1cUMyDz8",
     },
-    {
-      title: "Video Editor",
-      type: "Part-time / Internship (Unpaid, with perks)",
-      location: "Remote",
-      description: "Edit videos for our content creators, gain real-world startup experience, and build your portfolio. ",
-      applyLink: "https://docs.google.com/forms/d/e/1FAIpQLSdJ66Pe7nLQDo0QsYLBMCYsUXy5j2n7C4HNb099HHLk9PMB-A/viewform?usp=header",
-    },
-    
   ];
 
   return (
