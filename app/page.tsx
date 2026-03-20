@@ -14,21 +14,21 @@ export default function Page() {
 
       {/* Animated background stars */}
       <motion.div
-        className="absolute top-20 left-20 text-4xl font-light text-gray-300"
+        className="hidden sm:block absolute top-20 left-20 text-4xl font-light text-gray-300"
         animate={{ rotate: 360 }}
         transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
       >
         ✱
       </motion.div>
       <motion.div
-        className="absolute top-60 left-40 text-3xl font-light text-gray-300"
+        className="hidden md:block absolute top-60 left-40 text-3xl font-light text-gray-300"
         animate={{ rotate: -360 }}
         transition={{ duration: 25, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
       >
         ✱
       </motion.div>
       <motion.div
-        className="absolute bottom-40 left-60 text-5xl font-light text-gray-300"
+        className="hidden lg:block absolute bottom-40 left-60 text-5xl font-light text-gray-300"
         animate={{ rotate: 360 }}
         transition={{ duration: 30, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
       >
@@ -42,16 +42,14 @@ export default function Page() {
       <FeaturesSection />
 
       {/* Carousel Section */}
-      <div className="py-16 bg-white">
-        <HorizontalCarousel />
-      </div>
+      <HorizontalCarousel />
 
       {/* WhatsApp CTA */}
       <WhatsAppCTA />
 
       {/* Floating Stars */}
       <motion.div
-        className="absolute top-1/3 right-20 text-2xl font-light text-gray-300"
+        className="hidden md:block absolute top-1/3 right-20 text-2xl font-light text-gray-300"
         animate={{ rotate: 360, y: [0, -20, 0] }}
         transition={{
           rotate: { duration: 15, repeat: Number.POSITIVE_INFINITY, ease: "linear" },
@@ -61,27 +59,7 @@ export default function Page() {
         ✱
       </motion.div>
       <motion.div
-        className="absolute bottom-20 right-40 text-3xl font-light text-gray-300"
-        animate={{ rotate: -360, x: [0, 15, 0] }}
-        transition={{
-          rotate: { duration: 18, repeat: Number.POSITIVE_INFINITY, ease: "linear" },
-          x: { duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" },
-        }}
-      >
-        ✱
-      </motion.div>
-      <motion.div
-        className="absolute top-1/3 right-20 text-2xl font-light text-gray-300"
-        animate={{ rotate: 360, y: [0, -20, 0] }}
-        transition={{
-          rotate: { duration: 15, repeat: Number.POSITIVE_INFINITY, ease: "linear" },
-          y: { duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" },
-        }}
-      >
-        ✱
-      </motion.div>
-      <motion.div
-        className="absolute bottom-20 right-40 text-3xl font-light text-gray-300"
+        className="hidden md:block absolute bottom-20 right-40 text-3xl font-light text-gray-300"
         animate={{ rotate: -360, x: [0, 15, 0] }}
         transition={{
           rotate: { duration: 18, repeat: Number.POSITIVE_INFINITY, ease: "linear" },

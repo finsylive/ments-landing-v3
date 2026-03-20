@@ -1,18 +1,8 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Poppins } from "next/font/google";
-
-/**
- * HorizontalCarousel component – v2
- * Enlarged cards (≈1.5×) for more immersive app-screen previews.
- * - Card widths: 384 / 432 / 480 px (w-96 / custom) depending on breakpoint
- * - Card height: 750 px
- * - Scroll step bumped to 520 px to match new width + gap
- */
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,7 +16,7 @@ const featuredScreens = [
     category: "Feed & Community",
     title: "Explore real founder journeys.",
     subtitle: "",
-    image: "/feed.png",           // Feed screenshot
+    image: "/feed.png",
     bgColor: "bg-black",
     textColor: "text-white",
   },
@@ -35,7 +25,7 @@ const featuredScreens = [
     category: "Environment",
     title: "A vibrant startup ecosystem.",
     subtitle: "",
-    image: "/environment.png",    // Environment screenshot
+    image: "/environment.png",
     bgColor: "bg-emerald-800",
     textColor: "text-white",
   },
@@ -44,7 +34,7 @@ const featuredScreens = [
     category: "Hub",
     title: "Events, gigs, and competitions.",
     subtitle: "",
-    image: "/hub-section.png",    // Hub screenshot
+    image: "/hub-section.png",
     bgColor: "bg-blue-900",
     textColor: "text-white",
   },
@@ -53,7 +43,7 @@ const featuredScreens = [
     category: "Startup Profile",
     title: "Your startup, discoverable & trackable.",
     subtitle: "",
-    image: "/startup-profile.png", // Startup Profile screenshot
+    image: "/startup-profile.png",
     bgColor: "bg-purple-900",
     textColor: "text-white",
   },
@@ -62,7 +52,7 @@ const featuredScreens = [
     category: "Profile",
     title: "Personalized founder identity.",
     subtitle: "",
-    image: "/profile.png",        // Personal profile screenshot
+    image: "/profile.png",
     bgColor: "bg-green-900",
     textColor: "text-white",
   },
@@ -71,134 +61,235 @@ const featuredScreens = [
     category: "Portfolio",
     title: "Showcase your work & skills.",
     subtitle: "",
-    image: "/portfolio.png",      // Portfolio screenshot
+    image: "/portfolio.png",
     bgColor: "bg-slate-800",
     textColor: "text-white",
   },
 ];
 
+// Triple the screens for a seamless infinite loop:
+//  [copy-1] | [copy-2 ← we always live here] | [copy-3]
+// When the user drifts into copy-1 or copy-3 we silently
+// teleport to the matching position inside copy-2.
+const loopedScreens = [
+  ...featuredScreens,
+  ...featuredScreens,
+  ...featuredScreens,
+];
+const ORIG = featuredScreens.length; // 6
+const TOTAL = loopedScreens.length;  // 18
 
 export default function HorizontalCarousel() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const drag = useRef({ on: false, startX: 0, startLeft: 0 });
 
-  const checkScrollButtons = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+  /* ── Init: snap to the start of copy-2 ──────────────────────── */
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    // rAF ensures the flex layout has resolved scrollWidth
+    requestAnimationFrame(() => {
+      el.scrollLeft = el.scrollWidth / 3;
+    });
+  }, []);
+
+  /* ── Infinite-loop scroll handler ────────────────────────────── */
+  const onScroll = useCallback(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const W = el.scrollWidth / 3; // width of one full copy
+    let sl = el.scrollLeft;
+
+    // Teleport: drifted into copy-1 → jump to copy-2
+    if (sl < W) {
+      el.scrollLeft = sl + W;
+      sl += W;
+    // Teleport: drifted into copy-3 → jump to copy-2
+    } else if (sl >= W * 2) {
+      el.scrollLeft = sl - W;
+      sl -= W;
     }
-  };
 
-  const scrollLeft = () => {
-    scrollContainerRef.current?.scrollBy({ left: -410, behavior: "smooth" });
-  };
-
-  const scrollRight = () => {
-    scrollContainerRef.current?.scrollBy({ left: 410, behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    container?.addEventListener("scroll", checkScrollButtons);
-    checkScrollButtons();
-    return () => container?.removeEventListener("scroll", checkScrollButtons);
+    // Active dot: which card inside the original set are we nearest?
+    const cardW = el.scrollWidth / TOTAL;
+    const offset = ((sl - W) % W + W) % W;
+    const idx = Math.round(offset / cardW) % ORIG;
+    setActiveIdx(Math.min(Math.max(idx, 0), ORIG - 1));
   }, []);
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        scrollLeft();
-      } else if (e.key === "ArrowRight") {
-        e.preventDefault();
-        scrollRight();
-      }
+    const el = containerRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [onScroll]);
+
+  /* ── Auto-scroll (pause on hover / drag) ─────────────────────── */
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      const el = containerRef.current;
+      if (el) el.scrollBy({ left: el.scrollWidth / TOTAL, behavior: "smooth" });
+    }, 3500);
+    return () => clearInterval(id);
+  }, [paused]);
+
+  /* ── Step helper (arrows + keyboard) ────────────────────────── */
+  const step = useCallback((dir: 1 | -1) => {
+    const el = containerRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * (el.scrollWidth / TOTAL), behavior: "smooth" });
+  }, []);
+
+  /* ── Keyboard nav ────────────────────────────────────────────── */
+  useEffect(() => {
+    const fn = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
     };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+    window.addEventListener("keydown", fn);
+    return () => window.removeEventListener("keydown", fn);
+  }, [step]);
+
+  /* ── Mouse drag-to-scroll ────────────────────────────────────── */
+  const onMouseDown = (e: React.MouseEvent) => {
+    drag.current = {
+      on: true,
+      startX: e.clientX,
+      startLeft: containerRef.current?.scrollLeft ?? 0,
+    };
+  };
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!drag.current.on || !containerRef.current) return;
+    containerRef.current.scrollLeft =
+      drag.current.startLeft - (e.clientX - drag.current.startX);
+  };
+  const stopDrag = () => { drag.current.on = false; };
+
+  /* ── Dot click: navigate to specific card ───────────────────── */
+  const goTo = (i: number) => {
+    const el = containerRef.current;
+    if (!el) return;
+    const W = el.scrollWidth / 3;
+    const cardW = el.scrollWidth / TOTAL;
+    el.scrollLeft = W + i * cardW;
+    setActiveIdx(i);
+  };
 
   return (
-    <div className={`${poppins.variable} font-sans`}>
-      <div className="w-full bg-gray-50 py-16 px-4">
-        <div className="max-w-7xl mx-auto">
+    <div
+      className={`${poppins.variable} font-sans`}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => { setPaused(false); stopDrag(); }}
+    >
+      <div className="w-full bg-gray-50 py-10 sm:py-14 md:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+
           {/* Header */}
-          <div className="mb-12">
-            <h1 className="text-5xl md:text-6xl font-poppins font-bold mb-4">
+          <div className="mb-7 sm:mb-10 md:mb-12">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-2 sm:mb-3">
               Featured <span className="text-gray-400">Screens</span>
-            </h1>
-            <p className="text-2xl md:text-3xl text-gray-700 font-poppins font-medium">
+            </h2>
+            <p className="text-base sm:text-xl md:text-2xl text-gray-600 font-medium">
               Get to know the app.
             </p>
           </div>
 
-          {/* Carousel */}
+          {/* Carousel track + arrow buttons */}
           <div className="relative">
             <div
-              ref={scrollContainerRef}
-              className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide"
+              ref={containerRef}
+              className="flex gap-3 sm:gap-5 md:gap-6 overflow-x-auto pb-3 scrollbar-hide cursor-grab active:cursor-grabbing select-none"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              onMouseDown={onMouseDown}
+              onMouseMove={onMouseMove}
+              onMouseUp={stopDrag}
+              onMouseLeave={stopDrag}
             >
-              {featuredScreens.map((screen) => (
-                <Card
-                  key={screen.id}
-                  className={`flex-shrink-0 w-96 sm:w-[432px] md:w-[480px] h-[750px] ${screen.bgColor} border-0 rounded-3xl overflow-hidden relative group`}
+              {loopedScreens.map((screen, i) => (
+                <div
+                  key={`${screen.id}-${i}`}
+                  className={[
+                    "flex-shrink-0",
+                    // Mobile-first widths
+                    "w-[215px] sm:w-72 md:w-80 lg:w-96",
+                    // Mobile-first heights (phone-screen proportions)
+                    "h-[460px] sm:h-[560px] md:h-[640px] lg:h-[720px]",
+                    screen.bgColor,
+                    "rounded-2xl sm:rounded-3xl overflow-hidden",
+                  ].join(" ")}
                 >
-                  <CardContent className="p-4 h-full flex flex-col">
+                  <div className="p-3.5 sm:p-5 h-full flex flex-col">
                     {/* Copy */}
                     <div>
-                      <p className={`text-sm ${screen.textColor} opacity-80 mb-2 font-poppins`}>{screen.category}</p>
-                      <h3 className={`text-2xl font-bold ${screen.textColor} leading-tight`}>
+                      <p className={`text-[11px] sm:text-sm ${screen.textColor} opacity-70 mb-0.5 sm:mb-2`}>
+                        {screen.category}
+                      </p>
+                      <h3 className={`text-[14px] sm:text-xl md:text-2xl font-bold ${screen.textColor} leading-tight`}>
                         {screen.title}
-                        {screen.subtitle && <sup className="text-sm">{screen.subtitle}</sup>}
+                        {screen.subtitle && (
+                          <sup className="text-sm">{screen.subtitle}</sup>
+                        )}
                       </h3>
                     </div>
 
-                    {/* Image */}
-                    <div className="relative w-full flex-1 mt-2 rounded-xl overflow-hidden ">
+                    {/* Screenshot image */}
+                    <div className="relative w-full flex-1 mt-2 sm:mt-3 rounded-xl overflow-hidden">
                       <img
                         src={screen.image}
                         alt={screen.title}
+                        draggable={false}
                         className="absolute inset-0 w-full h-full object-contain"
                       />
                     </div>
 
-                    {/* Plus icon */}
-                    <div className="flex justify-end mt-4">
-                      <Plus className={`w-8 h-8 ${screen.textColor} opacity-60 group-hover:opacity-100`} />
+                    {/* Plus icon – visible on sm+ */}
+                    <div className="hidden sm:flex justify-end mt-3">
+                      <Plus className={`w-7 h-7 ${screen.textColor} opacity-50`} />
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               ))}
             </div>
 
-            {/* Nav arrows */}
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 flex gap-2">
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white"
-                onClick={scrollLeft}
-                disabled={!canScrollLeft}
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white"
-                onClick={scrollRight}
-                disabled={!canScrollRight}
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-            </div>
+            {/* Prev / Next arrows (hidden on mobile) */}
+            <button
+              className="hidden sm:flex absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 shadow-md hover:bg-white transition-colors z-10"
+              onClick={() => step(-1)}
+              aria-label="Previous screen"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              className="hidden sm:flex absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 items-center justify-center rounded-full bg-white/90 backdrop-blur-sm border border-gray-200 shadow-md hover:bg-white transition-colors z-10"
+              onClick={() => step(1)}
+              aria-label="Next screen"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
 
-          <p className="mt-8 text-center text-gray-500 text-sm font-poppins">
-            Scroll horizontally or use → / ← keys
+          {/* Dot indicators */}
+          <div className="flex justify-center items-center gap-1.5 mt-5 sm:mt-6">
+            {featuredScreens.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                className={`rounded-full transition-all duration-300 ${
+                  i === activeIdx
+                    ? "w-5 sm:w-6 h-2 bg-black"
+                    : "w-2 h-2 bg-gray-300 hover:bg-gray-400"
+                }`}
+                aria-label={`Go to screen ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          <p className="mt-3 text-center text-gray-400 text-xs sm:text-sm">
+            Swipe or use ← → keys to explore
           </p>
         </div>
       </div>

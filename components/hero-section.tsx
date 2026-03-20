@@ -70,15 +70,15 @@ export default function HeroSection() {
         )}
       </AnimatePresence>
 
-      <div className="container mx-auto px-4 sm:px-6 pt-20 pb-16 max-w-7xl">
-      <div className="flex items-center justify-center min-h-[80vh] relative">
+      <div className="container mx-auto px-4 sm:px-6 pt-14 sm:pt-16 md:pt-20 pb-12 sm:pb-16 max-w-7xl">
+      <div className="flex items-center justify-center min-h-[72vh] md:min-h-[80vh] relative">
         {/* Responsive Flex: column on mobile, row on md+ */}
         <div className="flex flex-col-reverse md:flex-row items-center
-                        space-y-12 md:space-y-0 md:space-x-12 lg:space-x-20 w-full
+                        gap-10 sm:gap-12 md:gap-0 md:space-x-12 lg:space-x-20 w-full
                         md:justify-between">
           {/* Headline Text */}
           <motion.div
-            className="space-y-4 flex-shrink-0 px-2 md:px-0"
+            className="space-y-4 sm:space-y-5 flex-shrink-0 px-1 md:px-0"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
@@ -104,7 +104,7 @@ export default function HeroSection() {
                 <TrendingUp className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
               </motion.div>
               <motion.h1
-                className="text-6xl sm:text-9xl md:text-7xl lg:text-8xl xl:text-9xl font-thin text-black ml-2"
+                className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-thin text-black ml-1 sm:ml-2"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
@@ -115,7 +115,7 @@ export default function HeroSection() {
 
             {/* Begins */}
             <motion.div
-              className="text-6xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-thin text-gray-400"
+              className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-thin text-gray-400"
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
@@ -136,7 +136,7 @@ export default function HeroSection() {
                 <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8 text-white -ml-4" />
               </motion.div>
               <motion.h1
-                className="text-6xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-thin text-black ml-2"
+                className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-thin text-black ml-1 sm:ml-2"
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 1.3 }}
@@ -196,10 +196,27 @@ export default function HeroSection() {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
+              {/* Animated gradient blobs — sit behind the character */}
+              <motion.div
+                className="absolute -top-8 -right-8 w-56 h-56 sm:w-72 sm:h-72 bg-emerald-400/25 rounded-full blur-3xl pointer-events-none"
+                animate={{ scale: [1, 1.15, 1], opacity: [0.25, 0.4, 0.25] }}
+                transition={{ duration: 5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute -bottom-6 -left-6 w-44 h-44 sm:w-60 sm:h-60 bg-blue-400/20 rounded-full blur-3xl pointer-events-none"
+                animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.35, 0.2] }}
+                transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 1 }}
+              />
+              <motion.div
+                className="absolute top-1/3 -left-4 w-32 h-32 sm:w-44 sm:h-44 bg-yellow-300/20 rounded-full blur-2xl pointer-events-none"
+                animate={{ scale: [1, 1.1, 1], opacity: [0.15, 0.28, 0.15] }}
+                transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 2 }}
+              />
+
               <motion.div
                 animate={{ y: [0, -10, 0] }}
                 transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-                className="block w-full"
+                className="block w-full relative z-10"
               >
                 <Image
                   src="/Laptop Investor drinking-min.png"
