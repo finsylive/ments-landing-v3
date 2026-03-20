@@ -15,6 +15,13 @@ function OpeningsSection() {
       applyLink: "https://forms.gle/RgiuThLHnKdT4cii9",
     },
     {
+      title: "Content Writer",
+      type: "Part-time / Internship",
+      location: "Remote",
+      description: "Write compelling articles, blogs, and copy that resonate with the college community.",
+      applyLink: "https://forms.gle/anhPZfoeVkpqNVYQA",
+    },
+    {
       title: "Business Development Intern",
       type: "Internship",
       location: "Remote",
