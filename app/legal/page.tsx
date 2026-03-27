@@ -397,7 +397,7 @@ export default function LegalDocument() {
             <div>
               <h3 className="text-xl font-semibold mb-3 text-gray-900 bg-gray-50 p-2 pl-4 rounded-md border-l-4 border-emerald-500">2.13 Contact</h3>
               <p className="text-gray-700">Privacy questions? Email support@ments.app or write to:</p>
-              <p className="text-gray-700 mt-2">Data Protection Officer<br />Ments<br />Nirmaan, Sudha Shankar Building, IIT Madras, Chennai, Tamil Nadu, India</p>
+              <p className="text-gray-700 mt-2">Ments<br />Nirmaan, Sudha Shankar Building, IIT Madras, Chennai, Tamil Nadu, India</p>
             </div>
           </div>
         </section>
