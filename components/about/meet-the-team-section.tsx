@@ -12,7 +12,7 @@ const teamMembers = [
   { name: "Shrishti", role: "Content Writer", initials: "Ri", education: "IIT Madras", image: "/team/shrishti.jpg" }, 
   { name: "Ashish", role: "Web Developer", initials: "Ri", education: "IIT Madras", image: "/team/ashish.png" }, 
   { name: "Siddhartha Kushwaha", role: "Brand Desginer", initials: "SK", education: "IIT Madras", image: "/team/Siddarth.jpg" }, 
-  { name: "Harsh Adee", role: "Business Strategy & Growth Manager", initials: "HA", education: "IIT Madras", image: "" },
+  { name: "Harsh Adee", role: "Business Strategy & Growth Manager", initials: "HA", education: "HVPM COET Amravati", image: "" },
 
 ]
 
