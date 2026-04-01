@@ -14,8 +14,8 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
-  signInWithGoogle: (redirectTo?: string) => Promise<void>;
-  signInWithGithub: (redirectTo?: string) => Promise<void>;
+  signInWithGoogle: (redirectTo?: string, profileType?: string) => Promise<void>;
+  signInWithGithub: (redirectTo?: string, profileType?: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -45,9 +45,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => subscription.unsubscribe();
   }, [supabase]);
 
-  const signInWithGoogle = async (redirectTo?: string) => {
+  const signInWithGoogle = async (redirectTo?: string, profileType?: string) => {
+    const callbackSearch = new URLSearchParams();
+    if (redirectTo) callbackSearch.set("next", redirectTo);
+    if (profileType) callbackSearch.set("ptype", profileType);
     const redirectUrl = `${window.location.origin}/auth/callback${
-      redirectTo ? `?next=${encodeURIComponent(redirectTo)}` : ""
+      callbackSearch.toString() ? `?${callbackSearch.toString()}` : ""
     }`;
     await supabase.auth.signInWithOAuth({
       provider: "google",
@@ -55,9 +58,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  const signInWithGithub = async (redirectTo?: string) => {
+  const signInWithGithub = async (redirectTo?: string, profileType?: string) => {
+    const callbackSearch = new URLSearchParams();
+    if (redirectTo) callbackSearch.set("next", redirectTo);
+    if (profileType) callbackSearch.set("ptype", profileType);
     const redirectUrl = `${window.location.origin}/auth/callback${
-      redirectTo ? `?next=${encodeURIComponent(redirectTo)}` : ""
+      callbackSearch.toString() ? `?${callbackSearch.toString()}` : ""
     }`;
     await supabase.auth.signInWithOAuth({
       provider: "github",

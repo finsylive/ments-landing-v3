@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/contexts/auth-context";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, Suspense } from "react";
+import { useEffect, Suspense, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,6 +13,7 @@ function LoginContent() {
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
   const redirectTo = searchParams.get("redirect") ?? "/";
+  const [profileType, setProfileType] = useState("founder");
 
   useEffect(() => {
     if (!loading && user) {
@@ -66,8 +67,27 @@ function LoginContent() {
           )}
 
           <div className="space-y-3">
+            <div className="rounded-xl border border-zinc-800 p-4">
+              <label className="mb-2 block text-sm text-zinc-300">
+                Select profile type
+              </label>
+              <select
+                value={profileType}
+                onChange={(e) => setProfileType(e.target.value)}
+                className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-white"
+              >
+                <option value="founder">Founder</option>
+                <option value="investor">Investor</option>
+                <option value="mentor">Mentor</option>
+                <option value="member">Member</option>
+              </select>
+              <p className="mt-2 text-xs text-zinc-500">
+                Admin and super admin roles are assigned only by super admins.
+              </p>
+            </div>
+
             <button
-              onClick={() => signInWithGoogle(redirectTo)}
+              onClick={() => signInWithGoogle(redirectTo, profileType)}
               className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-100
                          text-black font-medium py-3 px-4 rounded-xl transition-colors duration-200"
             >
@@ -93,7 +113,7 @@ function LoginContent() {
             </button>
 
             <button
-              onClick={() => signInWithGithub(redirectTo)}
+              onClick={() => signInWithGithub(redirectTo, profileType)}
               className="w-full flex items-center justify-center gap-3 bg-zinc-800 hover:bg-zinc-700
                          text-white font-medium py-3 px-4 rounded-xl border border-zinc-700
                          transition-colors duration-200"

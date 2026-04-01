@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { isAdminUser } from "@/lib/auth/rbac";
 
 // =============================================================================
 // CORS CONFIGURATION
@@ -200,6 +201,8 @@ const PROTECTED_API_ROUTES = ["/api/referral", "/api/account/delete"];
 
 /** Page routes that redirect to /login when unauthenticated */
 const PROTECTED_PAGE_ROUTES = ["/dashboard"];
+const ADMIN_PAGE_ROUTES = ["/admin"];
+const ADMIN_API_PREFIX = "/api/admin";
 
 /** Sensitive API routes with stricter rate limits */
 const SENSITIVE_API_ROUTES = ["/api/account/delete"];
@@ -303,6 +306,26 @@ export async function middleware(request: NextRequest) {
       applySecurityHeaders(resp);
       return resp;
     }
+
+    const isAdminApi = pathname.startsWith(ADMIN_API_PREFIX);
+    if (isAdminApi) {
+      const { data: dbIsAdmin } = await supabase.rpc("is_admin");
+      const hasAdminAccess = isAdminUser(user) || Boolean(dbIsAdmin);
+      if (hasAdminAccess) {
+        // pass
+      } else {
+        const resp = new NextResponse(
+          JSON.stringify({
+            error: "Forbidden",
+            message: "Admin access required.",
+          }),
+          { status: 403, headers: { "Content-Type": "application/json" } }
+        );
+        applyCorsHeaders(resp, origin);
+        applySecurityHeaders(resp);
+        return resp;
+      }
+    }
   }
 
   // ── 5. Auth guard — page routes (redirect to login) ────────────────────
@@ -314,6 +337,24 @@ export async function middleware(request: NextRequest) {
     loginUrl.pathname = "/login";
     loginUrl.searchParams.set("redirect", pathname);
     return NextResponse.redirect(loginUrl);
+  }
+
+  const isAdminPage = ADMIN_PAGE_ROUTES.some((r) => pathname.startsWith(r));
+  if (isAdminPage) {
+    if (!user) {
+      const loginUrl = request.nextUrl.clone();
+      loginUrl.pathname = "/login";
+      loginUrl.searchParams.set("redirect", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    const { data: dbIsAdmin } = await supabase.rpc("is_admin");
+    const hasAdminAccess = isAdminUser(user) || Boolean(dbIsAdmin);
+    if (!hasAdminAccess) {
+      const unauthorizedUrl = request.nextUrl.clone();
+      unauthorizedUrl.pathname = "/";
+      return NextResponse.redirect(unauthorizedUrl);
+    }
   }
 
   // ── 6. Apply security headers & CORS to the final response ─────────────

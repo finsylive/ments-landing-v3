@@ -10,6 +10,16 @@ import { useRouter } from 'next/navigation';
 
 const pastEvents = [
   {
+    title: 'Women in Entrepreneurship',
+    description:
+      'An inspiring virtual session featuring women entrepreneurs sharing their journeys, challenges, and business-building strategies.',
+    date: new Date(2026, 2, 13),
+    duration: '1.5 hours',
+    format: 'Virtual',
+    location: 'Online',
+    poster: '/womanevent2.jpeg',
+  },
+  {
     title: 'Pitch & Dev Summit',
     description:
       'A high-energy day of startup pitches, hands-on dev sessions, and real networking.',
@@ -40,6 +50,7 @@ export default function EventsPage() {
       const { data, error } = await supabase
         .from('events')
         .select('*')
+        .eq('status', 'published')
         .gte('date', new Date().toISOString().split('T')[0])
         .order('date', { ascending: true })
         .limit(1);
@@ -55,10 +66,16 @@ export default function EventsPage() {
     fetchEvent();
   }, []);
 
-  const computedDate = event?.date ? new Date(event.date) : new Date(2026, 2, 13); // 13 March 2026
-  const computedDuration = event?.duration || '1.5 hours';
-  const computedFormat = event?.mode || 'Virtual';
-  const computedLocation = event?.location || 'Online';
+  const hasUpcomingEvent = Boolean(event);
+
+  const computedDate = (() => {
+    if (!event?.date) return null;
+    const parsed = new Date(event.date);
+    return Number.isNaN(parsed.getTime()) ? null : parsed;
+  })();
+  const computedDuration = event?.duration || null;
+  const computedFormat = event?.mode || null;
+  const computedLocation = event?.location || null;
 
   // Normalize any hard-coded/wrong dates in Event_Flow text to the computed event date (e.g., "20 Sept")
   const formatDayMonth = (d: Date) => {
@@ -70,7 +87,7 @@ export default function EventsPage() {
 
   const normalizeEventFlow = (text?: string) => {
     if (!text) return text;
-    const label = formatDayMonth(computedDate);
+    const label = computedDate ? formatDayMonth(computedDate) : 'TBA';
     const patterns = [
       /\b9(?:th)?\s*(?:of\s*)?aug(?:ust)?\b/gi,
       /\baug(?:ust)?\s*9(?:th)?\b/gi,
@@ -137,8 +154,8 @@ export default function EventsPage() {
         {/* Header */}
         <header className="mb-10 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border bg-white/70 px-4 py-1 text-sm text-gray-700 shadow-sm backdrop-blur">
-            <span className="h-2 w-2 rounded-full bg-green-500" />
-            Upcoming Event • More events are coming soon
+            <span className={`h-2 w-2 rounded-full ${hasUpcomingEvent ? 'bg-green-500' : 'bg-amber-500'}`} />
+            {hasUpcomingEvent ? 'Upcoming Event • More events are coming soon' : 'No upcoming event right now'}
           </div>
           <h1 className="mt-4 text-balance text-4xl font-extrabold tracking-tight sm:text-5xl">
             Don’t just attend. <span className="text-primary">Belong.</span>
@@ -149,19 +166,36 @@ export default function EventsPage() {
         </header>
 
         {/* Main card (poster left, details right) */}
+        {!loading && !error && !hasUpcomingEvent ? (
+          <div className="rounded-3xl border bg-white/85 p-8 text-center shadow-xl ring-1 ring-gray-100 backdrop-blur">
+            <h2 className="text-3xl font-bold text-primary">No Upcoming Event Yet</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-gray-600">
+              We are planning the next community experience. Check back soon and explore our past events below.
+            </p>
+            <div className="mt-6 inline-flex items-center rounded-full bg-gray-100 px-4 py-2 text-sm text-gray-700">
+              Event updates will appear here once published.
+            </div>
+          </div>
+        ) : (
         <div className="grid items-stretch gap-8 md:grid-cols-[1.1fr,1fr]">
           {/* Poster (portrait-friendly) */}
           <div className="group relative flex justify-center">
             <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-primary/20 via-fuchsia-300/20 to-emerald-300/20 blur-xl opacity-70 group-hover:opacity-100 transition" />
             <div className="relative overflow-hidden rounded-3xl bg-white shadow-2xl ring-1 ring-black/5">
-              <Image
-                src={event?.poster || '/womanevent2.jpeg'}
-                alt={event?.title || 'Women in Entrepreneurship'}
-                width={700}
-                height={1000}
-                priority
-                className="w-full max-w-sm md:max-w-md h-auto object-contain"
-              />
+              {event?.poster_url ? (
+                <Image
+                  src={event.poster_url}
+                  alt={event?.title || 'Event poster'}
+                  width={700}
+                  height={1000}
+                  priority
+                  className="w-full max-w-sm md:max-w-md h-auto object-contain"
+                />
+              ) : (
+                <div className="flex h-[28rem] w-[22rem] items-center justify-center bg-gray-50 text-sm text-gray-500">
+                  No event poster uploaded
+                </div>
+              )}
             </div>
           </div>
 
@@ -175,34 +209,36 @@ export default function EventsPage() {
                   <p className="text-red-600 font-semibold">{error}</p>
                 ) : (
                   <>
-                    <h2 className="text-3xl font-bold text-primary">
-                      {event?.title || 'Women in Entrepreneurship'}
-                    </h2>
+                    <h2 className="text-3xl font-bold text-primary">{event.title}</h2>
                     <p className="mt-3 text-gray-600">
-                      {event?.description ||
-                        'Celebrate the power of women-led ventures! Join an inspiring virtual session featuring trailblazing women entrepreneurs sharing their journeys, challenges, and strategies for building impactful businesses.'}
+                      {event.description ||
+                        'Join our upcoming founder-focused session to learn, connect, and collaborate with the Ments community.'}
                     </p>
 
                     <div className="mt-5 grid gap-3 sm:grid-cols-2">
                       <Chip
                         icon={<CalendarDays className="h-4 w-4" />}
                         label="Date"
-                        value={computedDate.toLocaleDateString(undefined, { dateStyle: 'long' })}
+                        value={
+                          computedDate
+                            ? computedDate.toLocaleDateString(undefined, { dateStyle: 'long' })
+                            : 'TBA'
+                        }
                       />
                       <Chip
                         icon={<Clock className="h-4 w-4" />}
                         label="Duration"
-                        value={computedDuration}
+                        value={computedDuration || 'TBA'}
                       />
                       <Chip
                         icon={<MapPin className="h-4 w-4" />}
                         label="Location"
-                        value={computedLocation}
+                        value={computedLocation || 'TBA'}
                       />
                       <Chip
                         icon={<Info className="h-4 w-4" />}
                         label="Format"
-                        value={computedFormat}
+                        value={computedFormat || 'TBA'}
                       />
                     </div>
                   </>
@@ -260,6 +296,7 @@ export default function EventsPage() {
             </div>
           </div>
         </div>
+        )}
 
         {/* Past Events */}
         <section className="mt-16">
@@ -404,7 +441,7 @@ export default function EventsPage() {
       )}
 
       {/* INFO MODAL */}
-      {openInfo && (event || true) && (
+      {openInfo && event && (
         <div
           className="fixed inset-0 z-50 grid place-items-center bg-black/50 px-4"
           role="dialog"
