@@ -78,7 +78,7 @@ export default function CSAEPolicy() {
               },
               { 
                 title: "Reporting Mechanisms", 
-                content: "We provide easy-to-use reporting tools within our application that allow users to report any content or behavior that may violate our CSAE policy. Reports are treated with high priority and are typically reviewed within 24 hours. For urgent CSAE concerns, users can contact us directly at safeguarding@ments.app for expedited review." 
+                content: "We provide easy-to-use reporting tools within our application that allow users to report any content or behavior that may violate our CSAE policy. Reports are treated with high priority and are typically reviewed within 24 hours. For urgent CSAE concerns, users can contact us directly at support@ments.app for expedited review." 
               },
               { 
                 title: "Collaboration with Law Enforcement", 
@@ -106,7 +106,7 @@ export default function CSAEPolicy() {
               },
               { 
                 title: "Contact Information", 
-                content: "For questions about our CSAE policies or to report concerns, please contact our dedicated safety team at safeguarding@ments.app." 
+                content: "For questions about our CSAE policies or to report concerns, please contact us at support@ments.app." 
               },
             ].map((item, index) => (
               <div key={index}>

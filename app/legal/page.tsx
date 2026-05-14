@@ -494,7 +494,7 @@ export default function LegalDocument() {
 
             <div>
               <h3 className="text-xl font-semibold mb-3 text-gray-900 bg-gray-50 p-2 pl-4 rounded-md border-l-4 border-emerald-500">Reporting Mechanisms</h3>
-              <p className="text-gray-700">We provide in-app reporting tools that allow users to report any content or behavior that may violate this policy. Reports are treated with high priority and reviewed within 24 hours. For urgent CSAE concerns, contact safeguarding@ments.app for expedited review.</p>
+              <p className="text-gray-700">We provide in-app reporting tools that allow users to report any content or behavior that may violate this policy. Reports are treated with high priority and reviewed within 24 hours. For urgent CSAE concerns, contact support@ments.app for expedited review.</p>
             </div>
 
             <div>
@@ -567,7 +567,7 @@ export default function LegalDocument() {
           <div className="space-y-2 text-gray-700">
             <p><strong>General support:</strong> support@ments.app</p>
             <p><strong>Legal & official inquiries:</strong> official@ments.app</p>
-            <p><strong>Child safety concerns:</strong> safeguarding@ments.app</p>
+            <p><strong>Child safety concerns:</strong> support@ments.app</p>
             <p><strong>Website:</strong> https://www.ments.app</p>
           </div>
         </section>
